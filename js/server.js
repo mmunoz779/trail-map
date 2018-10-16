@@ -7,7 +7,7 @@ var fs = require('fs');
 var app = express();
 console.log("Server is now online.\n");
 
-app.use(express.static('~/Documents/CollegeStuff/CS3141/trailmap'));
+app.use(express.static('C:\\Users\\mmuno\\Documents/CollegeStuff/CS3141/trailmap'));
 
 // Route for everything else.
 app.get('*', function(request, response){
