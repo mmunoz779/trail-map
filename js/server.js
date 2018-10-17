@@ -9,14 +9,14 @@ var fs = require('fs');
 var app = express();
 console.log("Server is now online.\n");
 
-app.use(express.static('C:\\Users\\mmuno\\WebstormProjects\\trail-map\\html'));
+app.use(express.static('C:\\Users\\mmuno\\WebstormProjects\\trail-map'));
 
 // Route for everything else.
 app.get('*', function(request, response){
     response.send('Error 404: Not found');
 });
 
-app.get("/home", function (request, response) {
+app.get("/html", function (request, response) {
     response.writeHead(goodStatus);
 });
 
