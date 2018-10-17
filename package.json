@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "dependencies": {
     "connect": "^3.6.6",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
   }
 }
