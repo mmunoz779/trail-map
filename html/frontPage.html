@@ -3,64 +3,9 @@
 <head>
     <title>Welcome: AlphaTrails</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-        form {border: 3px solid #f1f1f1;}
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        input.button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        input.button:hover {
-            opacity: 0.8;
-        }
-
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-
-        img.logo {
-            width: 20%;
-            border-radius: 0%;
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-            .cancelbtn {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
 
 <div class="container">
@@ -70,12 +15,11 @@
         <img src="../assets/logo.png" alt="logo" class="logo">
     </div>
 
-    <form>
-        <input class="button" type="button" value="Log In"
-               onclick="window.location.href='login.html'" />
-        <input class="button" type="button" value="Sign Up"
-               onclick="window.location.href='signup.html'" />
-    </form>
+    <button type="button" class="loginbtn"
+            onclick="window.location.href='login.html'">Log In</button>
+    <button type="button" class="signupbtn"
+            onclick="window.location.href='signup.html'">Sign Up</button>
+
 
     <!--        <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
