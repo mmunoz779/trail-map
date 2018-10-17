@@ -54,6 +54,16 @@ span.psw {
     padding-top: 16px;
 }
 
+#map {
+    height: 75%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
