@@ -13,13 +13,34 @@
     "path": "^0.12.7",
     "supertest": "^3.3.0"
   },
-  "pre-commit": "npm test",
-  "pre-push": [
-    "rm -rf node_modules",
-    "npm install",
-    "npm test"
-  ],
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha"
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "commit": "commit-wizard"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  },
+  "config": {
+    "pre-git": {
+      "enabled": true,
+      "pre-commit": [
+        "echo \"running percommit test\"",
+        ",npm test"
+      ],
+      "pre-push": [
+        "echo \"running percommit test\"",
+        "rm -rf node_modules",
+        "npm install",
+        "npm test"
+      ],
+      "post-commit": [
+        "echo \"Test ran successfully\""
+      ],
+      "post-checkout": [],
+      "post-merge": []
+    }
+  },
+  "devDependencies": {
+    "pre-git": "^3.17.1"
   }
 }
