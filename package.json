@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
+    "aws-sdk": "^2.338.0",
+    "body-parser": "latest",
     "connect": "^3.6.6",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mocha": "^5.2.0",
-    "path": "^0.12.7",
-    "body-parser": "latest",
     "nodemon": "^1.18.4",
-    "aws-sdk": "^2.338.0"
+    "path": "^0.12.7",
+    "supertest": "^3.3.0"
   },
+  "pre-commit": "npm test",
+  "pre-push": [
+    "rm -rf node_modules",
+    "npm install",
+    "npm test"
+  ],
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha"
   }

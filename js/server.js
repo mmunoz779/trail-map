@@ -1,5 +1,4 @@
 // Configure server constants
-const goodStatus = 200;
 const port = 8080;
 
 // Configure express and routing
@@ -13,6 +12,7 @@ var api = require('../routes/api');
 
 var app = express();
 
+// Configure project directory pathway
 var directoryArray = __dirname.split('\\');
 var projectDirectory = "";
 
@@ -36,11 +36,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', index);
 app.use('/api', api);
 
+// Replace with 404 html page in the future with branding
 app.use("*", function (req, res) {
-    res.header(200);
-    res.send("Error 404: page not found");
+    res.status(404).send("Error 404: page not found");
 });
 
-app.listen(port, function () {
+// Launch server
+var server = app.listen(port, function () {
     console.log("Server is now online on port " + port);
 });
+
+module.exports = server;
