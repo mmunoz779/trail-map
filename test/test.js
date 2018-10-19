@@ -39,5 +39,5 @@ describe('Server-Test', function () {
 });
 
 describe('Dummy-Test', function() {
-   assert('alwaysFails', 1, 0);
+   assert('alwaysFails', 0, 1);
 });
