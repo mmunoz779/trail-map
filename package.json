@@ -24,7 +24,6 @@
     "pre-git": {
       "enabled": true,
       "pre-commit": [
-        "echo \"running percommit test\"",
         "npm test"
       ],
       "pre-push": [

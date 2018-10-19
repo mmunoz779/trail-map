@@ -36,5 +36,4 @@ describe('Server-Test', function () {
             .get("/foo/bar")
             .expect(404, done);
     });
-    assert('fail', 1, 0);
 });
