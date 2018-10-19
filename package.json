@@ -27,7 +27,6 @@
         "npm test"
       ],
       "pre-push": [
-        "echo \"running percommit test\"",
         "rm -rf node_modules",
         "npm install",
         "npm test"
