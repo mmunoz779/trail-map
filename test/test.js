@@ -37,3 +37,7 @@ describe('Server-Test', function () {
             .expect(404, done);
     });
 });
+
+describe('Dummy-Test', function() {
+   assert('alwaysFails', 1, 0);
+});
