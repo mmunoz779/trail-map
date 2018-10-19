@@ -25,12 +25,12 @@ describe('Server-Test', function () {
                 .expect()
         });
     });
-    it('should respond with login.html for /login', function () {
-        request(server)
-            .get("/")
-            .HTML
-            .expect()
-    });
+    // it('should respond with login.html for /login', function () {
+    //     request(server)
+    //         .get("/")
+    //         .HTML
+    //         .expect();
+    // });
     it('should respond with 404 for everything else', function (done) {
         request(server)
             .get("/foo/bar")
