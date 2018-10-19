@@ -25,7 +25,7 @@
       "enabled": true,
       "pre-commit": [
         "echo \"running percommit test\"",
-        ",npm test"
+        "npm test"
       ],
       "pre-push": [
         "echo \"running percommit test\"",
