@@ -31,14 +31,13 @@
         "npm install",
         "npm test"
       ],
-      "post-commit": [
-        "echo \"Test ran successfully\""
-      ],
+      "post-commit": [],
       "post-checkout": [],
       "post-merge": []
     }
   },
   "devDependencies": {
-    "pre-git": "^3.17.1"
+    "pre-git": "^3.17.1",
+    "nyc": "^13.1.0"
   }
 }

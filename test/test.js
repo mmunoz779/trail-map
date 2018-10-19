@@ -1,5 +1,16 @@
 var assert = require('assert');
 var request = require('supertest');
+var path = require('path');
+var fs = require('fs');
+
+// Configure project directory pathway
+var directoryArray = __dirname.split('\\');
+var projectDirectory = "";
+
+for (var i = 0; i < directoryArray.length - 1; i++) {
+    projectDirectory += directoryArray[i] + '\\';
+}
+
 describe('Server-Test', function () {
     var server;
     // Start the server before each test
@@ -19,11 +30,12 @@ describe('Server-Test', function () {
                 .get('/')
                 .expect(200, done);
         });
-        describe('test html returned', function () {
-            request(server)
-                .get('/')
-                .expect()
-        });
+        // describe('test html returned', function () {
+        //     request(server)
+        //         .get('/')
+        //         .innerHTML
+        //         .expect(projectDirectory + '/client/views/home.html',done);
+        // });
     });
     // it('should respond with login.html for /login', function () {
     //     request(server)
