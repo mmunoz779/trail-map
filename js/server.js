@@ -23,7 +23,7 @@ for (var i = 0; i < directoryArray.length - 1; i++) {
 }
 
 //View engine
-app.set('views', path.join(projectDirectory, OSName != "Windows" ? 'client/views' : 'client\\views'));
+app.set('views', path.join(projectDirectory, OSName != "Windows" ? 'client/views' : 'client\\views')); //sets directory for either windows or mac
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
