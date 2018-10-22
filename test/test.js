@@ -1,16 +1,5 @@
 var assert = require('assert');
 var request = require('supertest');
-var path = require('path');
-var fs = require('fs');
-
-// Configure project directory pathway
-var directoryArray = __dirname.split('\\');
-var projectDirectory = "";
-
-for (var i = 0; i < directoryArray.length - 1; i++) {
-    projectDirectory += directoryArray[i] + '\\';
-}
-
 describe('Server-Test', function () {
     var server;
     // Start the server before each test
@@ -25,27 +14,37 @@ describe('Server-Test', function () {
         server.close(done);
     });
     it('should respond with home.html to /', function testSlash(done) {
+            describe('test status returned', function () {
+                request(server)
+                    .get('/')
+                    .expect(200, done);
+            });
+    });
+    it('should respond with login.html to /login', function testSlash(done) {
         describe('test status returned', function () {
             request(server)
-                .get('/')
+                .get('/login')
                 .expect(200, done);
         });
-        // describe('test html returned', function () {
-        //     request(server)
-        //         .get('/')
-        //         .innerHTML
-        //         .expect(projectDirectory + '/client/views/home.html',done);
-        // });
     });
-    // it('should respond with login.html for /login', function () {
-    //     request(server)
-    //         .get("/")
-    //         .HTML
-    //         .expect();
-    // });
+    it('should respond with map.html to /maps', function testSlash(done) {
+        describe('test status returned', function () {
+            request(server)
+                .get('/maps')
+                .expect(200, done);
+        });
+    });
+    it('should respond with signup.html to /signup', function testSlash(done) {
+        describe('test status returned', function () {
+            request(server)
+                .get('/signup')
+                .expect(200, done);
+        });
+    });
+
     it('should respond with 404 for everything else', function (done) {
         request(server)
             .get("/foo/bar")
-            .expect(400, done);
+            .expect(404, done);
     });
 });
