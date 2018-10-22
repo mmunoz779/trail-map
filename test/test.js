@@ -46,6 +46,6 @@ describe('Server-Test', function () {
     it('should respond with 404 for everything else', function (done) {
         request(server)
             .get("/foo/bar")
-            .expect(404, done);
+            .expect(400, done);
     });
 });
