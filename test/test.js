@@ -14,26 +14,37 @@ describe('Server-Test', function () {
         server.close(done);
     });
     it('should respond with home.html to /', function testSlash(done) {
+            describe('test status returned', function () {
+                request(server)
+                    .get('/')
+                    .expect(200, done);
+            });
+    });
+    it('should respond with login.html to /login', function testSlash(done) {
         describe('test status returned', function () {
             request(server)
-                .get('/')
+                .get('/login')
                 .expect(200, done);
         });
-        describe('test html returned', function () {
+    });
+    it('should respond with map.html to /map', function testSlash(done) {
+        describe('test status returned', function () {
             request(server)
-                .get('/')
-                .expect()
+                .get('/map')
+                .expect(200, done);
         });
     });
-    // it('should respond with login.html for /login', function () {
-    //     request(server)
-    //         .get("/")
-    //         .HTML
-    //         .expect();
-    // });
+    it('should respond with signup.html to /signup', function testSlash(done) {
+        describe('test status returned', function () {
+            request(server)
+                .get('/signup')
+                .expect(200, done);
+        });
+    });
+
     it('should respond with 404 for everything else', function (done) {
         request(server)
             .get("/foo/bar")
-            .expect(400, done);
+            .expect(404, done);
     });
 });
