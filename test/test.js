@@ -19,11 +19,11 @@ describe('Server-Test', function () {
                 .get('/')
                 .expect(200, done);
         });
-        describe('test html returned', function () {
-            request(server)
-                .get('/')
-                .expect()
-        });
+        // describe('test html returned', function () {
+        //     request(server)
+        //         .get('/')
+        //         .expect()
+        // });
     });
     // it('should respond with login.html for /login', function () {
     //     request(server)
