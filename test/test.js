@@ -5,7 +5,7 @@ describe('Server-Test', function () {
     // Start the server before each test
     beforeEach(function () {
         // Delete cached server import and re-initialize for clean server
-        delete require.cache[require.resolve('../js/server')];
+        //delete require.cache[require.resolve('../js/server')];
         server = require('../js/server');
     });
     // Close the server after each test to ensure independence
