@@ -1,0 +1,11 @@
+#Default ignore files
+/.ides/shelf/
+/.idea/workspace.xml
+/coverage
+/.nux_outpost
+/node_modules
+
+#Editior-based HTTP Client Requests
+/.idea/httpRequests/
+rest-client.private.env.json
+http-client.private.env.json
