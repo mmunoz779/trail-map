@@ -5,12 +5,20 @@
     <title>AlphaTrails</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/navigation.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 </head>
 
 <body>
 
-    <h1>Pick a route!</h1>
+<div ng-app="myApp"
+     ng-controller="myController"></div>
 
+<h1>Pick a route!</h1>
+<div id="map">
+
+</div>
+
+<!--
     <div id="map">
         <script>
             var map;
@@ -24,7 +32,30 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
                 async defer> </script>
     </div>
-
+-->
 </body>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myController',
+        function ($scope, $http) {
 
+            var request = {
+                method: 'get',
+                url: '../JSON/loops.json',
+                dataType: 'json',
+                contentType: "application/json"
+            };
+
+            $scope.arrRoutes = new Array;
+
+            $http(request)
+                .success(function (jsonData) {
+                    $scope.arrRoutes = jsonData;
+                    $scope.list = $scope.arrRoutes;
+                })
+                .error(function () {
+
+                });
+        });
+</script>
 </html>

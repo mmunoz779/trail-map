@@ -51,7 +51,7 @@ app.use("*", function (req, res) {
 
 // Launch server
 var server = app.listen(port, function () {
-    console.log("Server is now online on port " + port);
+    console.log("Server is now online on port %s\n", port);
 });
 
 module.exports = server;
