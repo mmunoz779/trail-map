@@ -4,6 +4,7 @@
     <title>Login: AlphaTrails</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/navigation.js"></script>
 </head>
 
 <body>
@@ -23,15 +24,16 @@
         <input type="password" placeholder="Enter Password" name="psw" required>
 
         <button type="submit">Login</button>
-        <!--        <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>-->
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
         <button type="button" class="cancelbtn"
-                onclick="window.location.href='home.html'">Cancel</button>
-        <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
+                onclick="navigateHome()">Cancel
+        </button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
 </form>
 

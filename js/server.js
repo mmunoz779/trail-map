@@ -9,6 +9,9 @@ var path = require('path');
 // Require routing directories
 var index = require('../routes/index');
 var api = require('../routes/api');
+var login = require('../routes/login');
+var signup = require('../routes/signup');
+var maps = require('../routes/maps');
 
 var app = express();
 
@@ -36,7 +39,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // Handle routing
 app.use('/', index);
-app.use('/api', api);
+app.use('/', api);
+app.use('/',login);
+app.use('/',maps);
+app.use('/',signup);
 
 // Replace with 404 html page in the future with branding
 app.use("*", function (req, res) {

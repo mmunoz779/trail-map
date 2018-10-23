@@ -14,30 +14,37 @@ describe('Server-Test', function () {
         server.close(done);
     });
     it('should respond with home.html to /', function testSlash(done) {
+            describe('test status returned', function () {
+                request(server)
+                    .get('/')
+                    .expect(200, done);
+            });
+    });
+    it('should respond with login.html to /login', function testSlash(done) {
         describe('test status returned', function () {
             request(server)
-                .get('/')
+                .get('/login')
                 .expect(200, done);
         });
-        // describe('test html returned', function () {
-        //     request(server)
-        //         .get('/')
-        //         .expect()
-        // });
     });
-    // it('should respond with login.html for /login', function () {
-    //     request(server)
-    //         .get("/")
-    //         .HTML
-    //         .expect();
-    // });
+    it('should respond with map.html to /maps', function testSlash(done) {
+        describe('test status returned', function () {
+            request(server)
+                .get('/maps')
+                .expect(200, done);
+        });
+    });
+    it('should respond with signup.html to /signup', function testSlash(done) {
+        describe('test status returned', function () {
+            request(server)
+                .get('/signup')
+                .expect(200, done);
+        });
+    });
+
     it('should respond with 404 for everything else', function (done) {
         request(server)
             .get("/foo/bar")
             .expect(404, done);
     });
-});
-
-describe('Dummy-Test', function() {
-   assert('alwaysFails', 0, 0);
 });
