@@ -8,5 +8,15 @@
     "name": "Core and Portage Loop",
     "distance": 2.4,
     "imagePath": "../assets/Core+Portage.png"
+  },
+  {
+    "name": "Core, Hemlock, and Skidder Loop",
+    "distance": 0,
+    "imagePath": "../assets/Core+Hemlock+Skidder.png"
+  },
+  {
+    "name": "Core and Maple Loop",
+    "distance": 0,
+    "imagePath": "../assets/Core+Maple.png"
   }
 ]
