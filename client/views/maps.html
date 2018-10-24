@@ -11,7 +11,23 @@
 <body>
 
 <div ng-app="myApp"
-     ng-controller="myController"></div>
+     ng-controller="myController">
+
+    <table>
+        <tr>
+            <th>Route Name</th>
+            <th>Distance</th>
+            <th>Image</th>
+        </tr>
+
+        <tr ng-repeat="loops in list">
+            <td>{{loops.name}}</td>
+            <td>{{loops.distance}}</td>
+            <td>{{loops.imagePath}}</td>
+        </tr>
+    </table>
+
+</div>
 
 <h1>Pick a route!</h1>
 <div id="map">
@@ -35,16 +51,31 @@
 -->
 </body>
 <script>
+    function readTextFile(file, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        }
+        rawFile.send(null);
+    }
+
     var app = angular.module('myApp', []);
     app.controller('myController',
         function ($scope, $http) {
 
-            var request = {
-                method: 'get',
-                url: '../JSON/loops.json',
-                dataType: 'json',
-                contentType: "application/json"
-            };
+            var request = readTextFile('/JSON/loops.json', function(text){
+                return text;
+            });
+            //     {
+            //     method: 'get',
+            //     url: 'localhost:8080/JSON/loops.json',
+            //     dataType: 'json',
+            //     contentType: "application/json"
+            // };
 
             $scope.arrRoutes = new Array;
 
