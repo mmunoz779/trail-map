@@ -67,15 +67,12 @@
     app.controller('myController',
         function ($scope, $http) {
 
-            var request = readTextFile('/JSON/loops.json', function(text){
-                return text;
-            });
-            //     {
-            //     method: 'get',
-            //     url: 'localhost:8080/JSON/loops.json',
-            //     dataType: 'json',
-            //     contentType: "application/json"
-            // };
+            var request = {
+                method: 'get',
+                url: '/api',
+                dataType: 'json',
+                contentType: "application/json"
+            };
 
             $scope.arrRoutes = new Array;
 

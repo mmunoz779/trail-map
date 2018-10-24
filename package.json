@@ -22,9 +22,6 @@
   "config": {
     "pre-git": {
       "enabled": true,
-      "pre-commit": [
-        "npm test"
-      ],
       "pre-push": [
         "npm install",
         "npm test"
