@@ -1,14 +1,12 @@
-{
-    "route" : [
-    {
-        "name" : "Core and Hairpin Loop",
-        "distance" : 2.5,
-        "imagePath" : "../assets/Core+Hairpin.png"
-    },
-    {
-        "name" : "Core and Portage Loop",
-        "distance" : 2.4,
-        "imagePath" : "../assets/Core+Portage.png"
-    }
-    ]
-}
+[
+  {
+    "name": "Core and Hairpin Loop",
+    "distance": 2.5,
+    "imagePath": "../assets/Core+Hairpin.png"
+  },
+  {
+    "name": "Core and Portage Loop",
+    "distance": 2.4,
+    "imagePath": "../assets/Core+Portage.png"
+  }
+]

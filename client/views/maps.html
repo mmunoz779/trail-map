@@ -23,13 +23,14 @@
         <tr ng-repeat="loops in list">
             <td>{{loops.name}}</td>
             <td>{{loops.distance}}</td>
-            <td>{{loops.imagePath}}</td>
+            <td><img src="{{loops.imagePath}}" width="100" height="100"/></td>
         </tr>
     </table>
 
 </div>
-
+<!--
 <h1>Pick a route!</h1>
+-->
 <div id="map">
 
 </div>
@@ -51,18 +52,6 @@
 -->
 </body>
 <script>
-    function readTextFile(file, callback) {
-        var rawFile = new XMLHttpRequest();
-        rawFile.overrideMimeType("application/json");
-        rawFile.open("GET", file, true);
-        rawFile.onreadystatechange = function() {
-            if (rawFile.readyState === 4 && rawFile.status == "200") {
-                callback(rawFile.responseText);
-            }
-        }
-        rawFile.send(null);
-    }
-
     var app = angular.module('myApp', []);
     app.controller('myController',
         function ($scope, $http) {
