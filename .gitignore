@@ -1,0 +1,14 @@
+# Default ignored files
+.idea/shelf/*
+.idea/workspace.xml
+.idea/*
+coverage/*
+.nyc_output/*
+node_modules/*
+package-lock.json
+!.gitkeep
+
+# Editor-based HTTP Client requests
+/.idea/httpRequests/
+rest-client.private.env.json
+http-client.private.env.json
