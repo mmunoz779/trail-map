@@ -5,6 +5,7 @@ const port = 8080;
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var db = require('./db.js');
 
 // Require routing directories
 var index = require('../routes/index');
