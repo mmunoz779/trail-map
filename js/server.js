@@ -22,7 +22,7 @@ var directoryArray = __dirname.split(OSName == "Windows" ? '\\' : '/');
 var projectDirectory = "";
 
 for (var i = 0; i < directoryArray.length - 1; i++) {
-    projectDirectory += directoryArray[i] + (OSName = "Windows" ? '\\' : '/');
+    projectDirectory += directoryArray[i] + (OSName == "Windows" ? '\\' : '/');
 }
 
 //View engine
