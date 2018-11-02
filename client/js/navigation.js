@@ -1,5 +1,3 @@
-var ip = require('ip');
-
 function navigateHome() {
     window.location.href = "/";
 }
