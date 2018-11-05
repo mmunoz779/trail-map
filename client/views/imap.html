@@ -17,8 +17,8 @@
         var infowindow;
         function initialize() {
             var mapOptions = {gestureHandling: 'cooperative',
-                panControl: false,
-                zoomControl: false,
+              //  panControl: false,
+                //zoomControl: false,
                 streetViewControl: false,
                 scrollwheel: false,
                 disableDoubleClickZoom: true,
@@ -29,7 +29,11 @@
 
             var mapLayer = new google.maps.KmlLayer({
                 url: "https://www.google.com/maps/d/kml?mid=12hFGBLDMliwytR-jHz7EbIhzktRVXWeH"  });
+
             mapLayer.setMap(map);
+
+            map.data.loadGeoJson('../JSON/HemlockSkidder.geojson')
+
 
         }
 
