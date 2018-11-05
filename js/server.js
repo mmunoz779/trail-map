@@ -5,7 +5,10 @@ const port = 8080;
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var db = require('./db.js');
+var fs = require('fs');
+var morgan = require('morgan');
+var session = require('express-session');
+var db = require('../Models/db.js');
 
 // Require routing directories
 var index = require('../routes/index');
@@ -36,23 +39,38 @@ app.use(express.static(path.join(projectDirectory, 'client')));
 
 // Handle parsing
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true})); // body parse the JSON
 
-// Handle routing
-app.use('/', index);
-app.use('/', api);
-app.use('/',login);
-app.use('/',maps);
-app.use('/',signup);
+if (GLOBAL.SQLpool === undefined) {
+    GLOBAL.SQLpool = db.createPool(); // create global sql pool connection
+}
 
-// Replace with 404 html page in the future with branding
-app.use("*", function (req, res) {
-    res.status(404).send("Error 404: page not found");
+app.use(session({
+    secret: 'alphaomega',
+    resave: false,
+    saveUninitialized: true
+}));
+
+morgan.token('res', function getId(res) {
+    return res;
 });
+
+var accessLogStream = fs.createWriteStream(projectDirectory + '/logs/access.log', {flags: 'a'});
+
+app.use(morgan(':req[body] :res[body]', {stream: accessLogStream}));
+
+app.use(require('../routes'));
+
+// // Replace with 404 html page in the future with branding
+// app.use("*", function (req, res) {
+//     res.status(404).send("Error 404: page not found");
+// });
 
 // Launch server
 var server = app.listen(port, function () {
     console.log("Server is now online on port %s\n", port);
 });
+
+//gender, lastLogin, name, role, state
 
 module.exports = server;

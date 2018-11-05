@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
+    "angular": "^1.7.5",
+    "async": "^2.6.1",
     "aws-sdk": "^2.338.0",
     "body-parser": "latest",
     "connect": "^3.6.6",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "path": "^0.12.7",
-    "ip": "^1.1.5",
-    "angular": "^1.7.5",
-    "async": "^2.6.1",
     "express-session": "^1.15.6",
     "http-proxy": "^1.17.0",
+    "ip": "^1.1.5",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
-    "node-mysql": "^0.4.2"
+    "node-mysql": "^0.4.2",
+    "path": "^0.12.7"
   },
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha",
