@@ -12,7 +12,7 @@ var mysql = require("../db.js"),
  * Defines login operations.
  * @class
  */
-var login = function () {
+var signup = function () {
 };
 
 /**
@@ -20,31 +20,34 @@ var login = function () {
  * @Function
  * @param callback
  */
-login.prototype.loginUser = function (req, res, callback) {
-    var userValidated = false;
+signup.prototype.signupUser = function (req, res, callback) {
+    var accountExists = false;
     var nowDate = new Date().toISOString().slice(0, 19).replace('T', ' '),
-        params = [req.body.email, req.body.password, 1],
+        params = [req.body.email, req.body.name, passwordHash.generate(req.body.psw), "User"],
+        loginParams = [req.body.email, req.body.psw],
         detailParams = [],
         updateParams = [],
-        checkPasswordQuery = 'SELECT password FROM users WHERE email=?',
-        loginUserQuery = 'SELECT * FROM users WHERE email = ?',
-        getDetailQuery = 'SELECT id, email, gender, lastLogin, name, role FROM users WHERE id = ?',
+        accountExistsQuery = 'SELECT * FROM users WHERE email=?',
+        signupQuery = 'INSERT INTO users(email,name,password,role) VALUES(?, ?, ?, ?)',
+        loginUserQuery = 'SELECT * FROM users WHERE email = ? AND password = ?',
         updateLastloginTime = 'UPDATE users SET lastLogin = ? WHERE id = ?'; //updates the date of lastlogin field
     mysqlPool.getConnection(function (err, connection) {
-        connection.query(checkPasswordQuery, params, function (err, rows, fields) {
-            if (!passwordHash.verify(req.body.password, rows[0].password)) {
-                res.redirect('/login');
-                userValidated = true;
+        connection.query(accountExistsQuery, req.body.email, function (err, rows, fields) {
+            if (rows.length > 0) {
+                accountExists = true;
+                callback(true, JSON.stringify({"message": "Account already exists"}));
             }
         });
-        if (userValidated) {
-            connection.query(loginUserQuery, params, function (err, rows, fields) {
+        if (!accountExists) {
+            connection.query(signupQuery, params, function (err) {
+            });
+            connection.query(loginUserQuery, loginParams, function (err, rows, fields) {
                 if (rows.length <= 0) {
                     connection.release();
-                    callback(true, null);
+                    callback(true, JSON.stringify({"name": "Email or password is incorrect"}));
                 } else {
-                    updateParams = [nowDate, rows[0].id];
-                    detailParams = [rows[0].id];
+                    updateParams = [nowDate, rows[0].insertId];
+                    detailParams = [rows[0].insertId];
                     req.session.user = rows[0];
                     connection.query(updateLastloginTime, updateParams, function (err, rows, fields) {
                         connection.query(getDetailQuery, detailParams, function (err, rows, fields) {
@@ -56,9 +59,9 @@ login.prototype.loginUser = function (req, res, callback) {
             });
         }
     });
-    if (userValidated) {
-        res.redirect("/maps");
+    if (!accountExists) {
+        res.redirect('/maps');
     }
 };
 
-module.exports = new login();
+module.exports = new signup();

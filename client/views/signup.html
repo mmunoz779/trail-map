@@ -1,5 +1,28 @@
 <!DOCTYPE html>
 <html>
+<script>
+    function validateForm() {
+        var name = document.forms["myForm"]["name"].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+        var email = document.forms["myForm"]["email"].value;
+        if (!email.contains("@")) {
+            alert("Please enter a valid email");
+            return false;
+        }
+        var pass = document.forms["myForm"]["psw"].value;
+        if (pass == "") {
+            alert("Please enter a password");
+            return false;
+        } else if (pass != document.forms["myForm"]["psw"].value) {
+            alert("Please make sure your password and retyped password match");
+            return false;
+        }
+        return true;
+    }
+</script>
 <head>
     <title>Sign Up: AlphaTrails</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,26 +34,26 @@
 
 <h2>Sign Up</h2>
 
-<form action="../php/action_page.php">
+<form name="myForm" action="/api/users/signup" onsubmit="return validateForm()" method="post">
     <div class="imgcontainer">
-        <img src="../assets/Logo.png" alt="logo" class="logo">
+        <img src="../assets/logo.png" alt="logo" class="logo">
     </div>
 
     <div class="container">
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required>
 
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
 
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
 
         <label for="repsw"><b>Re-type Password</b></label>
-        <input type="text" placeholder="Re-type Password" name="repsw" required>
+        <input type="password" placeholder="Re-type Password" name="repsw" required>
 
         <!-- Add information validation script to check valid login info and email-->
-        <button type="submit" onclick="navigateHome()">Login</button>
+        <button type="submit">Login</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">

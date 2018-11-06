@@ -10,13 +10,6 @@ var morgan = require('morgan');
 var session = require('express-session');
 var db = require('../Models/db.js');
 
-// Require routing directories
-var index = require('../routes/index');
-var api = require('../routes/api');
-var login = require('../routes/login');
-var signup = require('../routes/signup');
-var maps = require('../routes/maps');
-
 var app = express();
 
 // Configure project directory pathway
@@ -41,14 +34,16 @@ app.use(express.static(path.join(projectDirectory, 'client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true})); // body parse the JSON
 
+// Used for login API endpoint
 if (GLOBAL.SQLpool === undefined) {
     GLOBAL.SQLpool = db.createPool(); // create global sql pool connection
 }
 
+
 app.use(session({
-    secret: 'alphaomega',
+    secret: "alphaomega",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
 }));
 
 morgan.token('res', function getId(res) {
@@ -59,18 +54,12 @@ var accessLogStream = fs.createWriteStream(projectDirectory + '/logs/access.log'
 
 app.use(morgan(':req[body] :res[body]', {stream: accessLogStream}));
 
+// Handle routing
 app.use(require('../routes'));
-
-// // Replace with 404 html page in the future with branding
-// app.use("*", function (req, res) {
-//     res.status(404).send("Error 404: page not found");
-// });
 
 // Launch server
 var server = app.listen(port, function () {
     console.log("Server is now online on port %s\n", port);
 });
-
-//gender, lastLogin, name, role, state
 
 module.exports = server;
