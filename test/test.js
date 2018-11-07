@@ -133,7 +133,114 @@ describe('Server-Test', function () {
                     });
                 });
             });
-
+        });
+        describe('login-tests', function () {
+            it('should respond with 400 error when trying to login with an invalid email', function testInvalidUsername(done) {
+                describe('Test status returned', function () {
+                    request(server)
+                        .post('/api/users/login')
+                        .type('form')
+                        .send({
+                            email: "BadEmailTest@BadEmailTest.com",
+                            psw: "doesn't matter",
+                        })
+                        .expect(400).end(function (err, res) {
+                        if (err) return done(err);
+                        else {
+                            var connection = mysql.createConnection({
+                                host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
+                                user: "alphaomega",
+                                password: "wolfsquadron",
+                                database: "userinfo"
+                            });
+                            connection.connect(function (err) {
+                                if (err) {
+                                    console.error('error connecting: ' + err.stack);
+                                    return;
+                                }
+                                console.log('connected as id to test DB...');
+                            });
+                            // Make sure account was inserted properly
+                            connection.query("SELECT * FROM users WHERE email=?", testEmail, function (err, rows, fields) {
+                                assert.equal(rows.length, 0);
+                                done();
+                            });
+                            connection.end();
+                        }
+                    });
+                });
+            });
+            it('should respond with 400 when trying to login with an invalid password', function testInvalidPassword(done) {
+                describe('Test status returned', function () {
+                    request(server)
+                        .post('/api/users/login')
+                        .type('form')
+                        .send({
+                            email: "admin@alphatrails.com",
+                            psw: "incorrectPass",
+                        })
+                        .expect(400).end(function (err, res) {
+                        if (err) return done(err);
+                        else {
+                            var connection = mysql.createConnection({
+                                host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
+                                user: "alphaomega",
+                                password: "wolfsquadron",
+                                database: "userinfo"
+                            });
+                            connection.connect(function (err) {
+                                if (err) {
+                                    console.error('error connecting: ' + err.stack);
+                                    return;
+                                }
+                                console.log('connected as id to test DB...');
+                            });
+                            // Make sure account was inserted properly
+                            connection.query("SELECT * FROM users WHERE email=?", "admin@alphatrails.com", function (err, rows, fields) {
+                                assert.equal(rows.length, 1);
+                                console.log("Test users email: " + rows[0].email);
+                                done();
+                            });
+                            connection.end();
+                        }
+                    });
+                });
+                it('should respond with 400 when trying to login with an invalid password', function testInvalidPassword(done) {
+                    describe('Test status returned', function () {
+                        request(server)
+                            .post('/api/users/login')
+                            .type('form')
+                            .send({
+                                email: "admin@alphatrails.com",
+                                psw: "incorrectPass",
+                            })
+                            .expect(302).end(function (err, res) {
+                            if (err) return done(err);
+                            else {
+                                var connection = mysql.createConnection({
+                                    host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
+                                    user: "alphaomega",
+                                    password: "wolfsquadron",
+                                    database: "userinfo"
+                                });
+                                connection.connect(function (err) {
+                                    if (err) {
+                                        console.error('error connecting: ' + err.stack);
+                                        return;
+                                    }
+                                    console.log('connected as id to test DB...');
+                                });
+                                // Make sure account was inserted properly
+                                connection.query("SELECT * FROM users WHERE email=?", testEmail, function (err, rows, fields) {
+                                    assert.equal(rows.length, 1);
+                                    console.log("Test users email: " + rows[0].email);
+                                });
+                                connection.end();
+                            }
+                        });
+                    });
+                });
+            });
         });
     });
 });
