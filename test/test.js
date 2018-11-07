@@ -102,7 +102,7 @@ describe('Server-Test', function () {
                             psw: "Testing",
                             repsw: "Testing"
                         })
-                        .expect(201).end(function (err, res) {
+                        .expect(302).end(function (err, res) {
                         if (err) return done(err);
                         else {
                             var connection = mysql.createConnection({

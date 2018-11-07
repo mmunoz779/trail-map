@@ -30,7 +30,7 @@ router.post('/signup', function (req, res) {
             }
             return;
         } else {
-            res.redirect(201, '/login');
+            res.redirect('/login');
             return;
         }
     });
