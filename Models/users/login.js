@@ -23,13 +23,14 @@ login.prototype.loginUser = function (req, res, callback) {
         loginUserQuery = 'SELECT * FROM users WHERE email = ?',
         getDetailQuery = 'SELECT id, email, lastLogin, name, role FROM users WHERE id = ?',
         updateLastloginTime = 'UPDATE users SET lastLogin = ? WHERE id = ?'; //updates the date of lastlogin field
+    createPool();
     mysqlPool.getConnection(function (err, connection) {
         connection.query(checkPasswordQuery, params, function (err, rows, fields) {
             if (rows.length > 0 && !passwordHash.verify(req.body.psw, rows[0].password)) {
-                res.redirect('/login'); // Wrong password
+                res.redirect(400, '/login'); // Wrong password
                 return;
             } else if (rows.length <= 0) {
-                res.redirect('/login'); // Account does not exist, redirect to login and add no account found alert
+                res.redirect(400, '/login'); // Account does not exist, redirect to login and add no account found alert
                 return;
             }
             // Correct password, continue
@@ -54,7 +55,23 @@ login.prototype.loginUser = function (req, res, callback) {
 };
 
 login.prototype.closeConnections = function () {
-    mysqlPool.end();
+    if (mysqlPool != undefined) {
+        mysqlPool.end();
+        mysqlPool = undefined;
+    }
 };
+
+function createPool() {
+    if (mysqlPool === undefined) {
+        mysqlPool = mysql.createPool({
+            connectionLimit: 1,
+            host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
+            user: "alphaomega",
+            password: "wolfsquadron",
+            database: "userinfo",
+            timeout: 3000
+        });
+    }
+}
 
 module.exports = new login();
