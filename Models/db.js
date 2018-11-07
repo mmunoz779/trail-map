@@ -13,7 +13,7 @@ DB.prototype.createPool = function () {
         user: "alphaomega",
         password: "wolfsquadron",
         database: "userinfo",
-        connectionLimit: 100
+        connectionLimit: 2
     });
 };
 
@@ -70,4 +70,5 @@ DB.prototype.createTransaction = function (pool, callback) {
         });
     });
 };
+
 module.exports = new DB();

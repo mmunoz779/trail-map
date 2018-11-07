@@ -1,7 +1,10 @@
 var assert = require('assert');
 var request = require('supertest');
+var mysql = require('mysql');
+
 describe('Server-Test', function () {
     var server;
+    var testEmail = "testAccount@testAccount.test";
     // Start the server before each test
     beforeEach(function () {
         // Delete cached server import and re-initialize for clean server
@@ -13,10 +16,13 @@ describe('Server-Test', function () {
         // Pass done to ensure the server closes
         server.close(done);
     });
+
+    // Test routes
     it('should respond with home.html to /', function testSlash(done) {
         describe('test status returned', function () {
             request(server)
                 .get('/')
+                .expect('Content-Type', /html/)
                 .expect(200, done);
         });
     });
@@ -24,6 +30,7 @@ describe('Server-Test', function () {
         describe('test status returned', function () {
             request(server)
                 .get('/login')
+                .expect('Content-Type', /html/)
                 .expect(200, done);
         });
     });
@@ -31,6 +38,7 @@ describe('Server-Test', function () {
         describe('test status returned', function () {
             request(server)
                 .get('/maps')
+                .expect('Content-Type', /html/)
                 .expect(200, done);
         });
     });
@@ -38,6 +46,7 @@ describe('Server-Test', function () {
         describe('test status returned', function () {
             request(server)
                 .get('/signup')
+                .expect('Content-Type', /html/)
                 .expect(200, done);
         });
     });
@@ -46,11 +55,13 @@ describe('Server-Test', function () {
         describe('test status returned for /api/', function () {
             request(server)
                 .get('/api')
+                .expect('Content-Type', /text/)
                 .expect(200);
         });
         describe('test status returned for /api/routes endpoint', function () {
             request(server)
                 .get('/api/routes')
+                .expect('Content-Type', /json/)
                 .expect(200, done);
         });
     });
@@ -58,27 +69,71 @@ describe('Server-Test', function () {
     it('should respond with 404 for everything else', function testNotFound(done) {
         request(server)
             .get("/foo/bar")
+            .expect('Content-Type', /html/)
             .expect(404, done);
     });
-});
-describe('login-db-test', function () {
-    var server;
-    // Start the server before each test
-    beforeEach(function () {
-        // Delete cached server import and re-initialize for clean server
-        delete require.cache[require.resolve('../js/server')];
-        server = require('../js/server');
-    });
-    // Close the server after each test to ensure independence
-    afterEach(function (done) {
-        // Pass done to ensure the server closes
-        server.close(done);
-    });
-    it('should respond with home.html to /', function testSlash(done) {
-        describe('test status returned', function () {
-            request(server)
-                .get('/')
-                .expect(200, done);
+
+    // Test user accounts
+    describe('user-db-test', function () {
+        describe('sign-up-tests', function () {
+            it('should respond with 400 error when trying to create user that exists', function testInvalidSignup(done) {
+                describe('Test status returned', function () {
+                    request(server)
+                        .post('/api/users/signup')
+                        .type('form')
+                        .send({
+                            email: "admin@alphatrails.com",
+                            name: "doesn't matter",
+                            psw: "doesn't matter",
+                            repsw: "doesn't matter"
+                        })
+                        .expect('Content-Type', /html/)
+                        .expect(400, done);
+                });
+            });
+            it('should respond with 201 success when trying to create a new user', function testValidSignup(done) {
+                describe('Test status returned', function () {
+                    request(server)
+                        .post('/api/users/signup')
+                        .type('form')
+                        .send({
+                            email: testEmail,
+                            name: "Test user",
+                            psw: "Testing",
+                            repsw: "Testing"
+                        })
+                        .expect(201).end(function (err, res) {
+                        if (err) return done(err);
+                        else {
+                            var connection = mysql.createConnection({
+                                host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
+                                user: "alphaomega",
+                                password: "wolfsquadron",
+                                database: "userinfo"
+                            });
+                            connection.connect(function (err) {
+                                if (err) {
+                                    console.error('error connecting: ' + err.stack);
+                                    return;
+                                }
+                                console.log('connected as id to test DB...');
+                            });
+                            // Make sure account was inserted properly
+                            connection.query("SELECT * FROM users WHERE email=?", testEmail, function (err, rows, fields) {
+                                assert.equal(rows.length, 1);
+                                console.log("Test users email: " + rows[0].email);
+                            });
+                            // Make sure account was deleted
+                            connection.query("DELETE FROM users WHERE email=?", testEmail, function (err, results) {
+                                assert.equal(results.affectedRows, 1);
+                                done();
+                            });
+                            connection.end();
+                        }
+                    });
+                });
+            });
+
         });
     });
 });

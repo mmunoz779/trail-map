@@ -23,6 +23,7 @@
     "path": "^0.12.7"
   },
   "scripts": {
+    "start": "node js/server.js",
     "test": "nyc --reporter=html --reporter=text mocha",
     "commit": "commit-wizard"
   },

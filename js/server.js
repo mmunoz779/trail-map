@@ -5,10 +5,10 @@ const port = 8080;
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var fs = require('fs');
-var morgan = require('morgan');
 var session = require('express-session');
-var db = require('../Models/db.js');
+login = require('../models/users/login');
+logout = require('../models/users/logout');
+signup = require('../models/users/signup');
 
 var app = express();
 
@@ -34,11 +34,6 @@ app.use(express.static(path.join(projectDirectory, 'client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true})); // body parse the JSON
 
-// Used for login API endpoint
-if (GLOBAL.SQLpool === undefined) {
-    GLOBAL.SQLpool = db.createPool(); // create global sql pool connection
-}
-
 
 app.use(session({
     secret: "alphaomega",
@@ -46,20 +41,18 @@ app.use(session({
     saveUninitialized: false
 }));
 
-morgan.token('res', function getId(res) {
-    return res;
-});
-
-var accessLogStream = fs.createWriteStream(projectDirectory + '/logs/access.log', {flags: 'a'});
-
-app.use(morgan(':req[body] :res[body]', {stream: accessLogStream}));
-
 // Handle routing
 app.use(require('../routes'));
 
 // Launch server
 var server = app.listen(port, function () {
     console.log("Server is now online on port %s\n", port);
+});
+
+server.on('close', function () {
+    signup.closeConnections();
+    login.closeConnections();
+    console.log("Server closing...\n");
 });
 
 module.exports = server;

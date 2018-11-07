@@ -1,13 +1,7 @@
 var passwordHash = require('password-hash');
 
 var mysql = require("../db.js"),
-    mysqlPool = mysql.createPool({
-        connectionLimit: 1,
-        host: "alphatrail.cifyvs8kbuxe.us-east-2.rds.amazonaws.com",
-        user: "alphaomega",
-        password: "wolfsquadron",
-        database: "userinfo"
-    });
+    mysqlPool = mysql.createPool();
 /**
  * Defines login operations.
  * @class
@@ -21,7 +15,6 @@ var login = function () {
  * @param callback
  */
 login.prototype.loginUser = function (req, res, callback) {
-    var userValidated = false;
     var nowDate = new Date().toISOString().slice(0, 19).replace('T', ' '),
         params = [req.body.email, req.body.psw, 1],
         detailParams = [],
@@ -58,6 +51,10 @@ login.prototype.loginUser = function (req, res, callback) {
             });
         });
     });
+};
+
+login.prototype.closeConnections = function () {
+    mysqlPool.end();
 };
 
 module.exports = new login();
