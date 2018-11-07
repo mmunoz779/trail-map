@@ -1,64 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>AlphaTrails</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/navigation.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
-
 <body>
-<div ng-app="myApp"
-     ng-controller="myController">
-
-    <table>
-        <tr>
-            <th>Route Name</th>
-            <td>   </td>
-            <th>Distance (Km)</th>
-            <th>Image</th>
-        </tr>
-
-        <tr ng-repeat="loops in list">
-            <td>{{loops.name}}</td>
-            <td>   </td>
-            <td>{{loops.distance}}</td>
-            <td><img src="{{loops.imagePath}}" width="400"/></td>
-        </tr>
-    </table>
-
-</div>
-<!--
-<h1>Pick a route!</h1>
--->
-<div id="map">
-
-</div>
-
-</body>
+<div id="map"></div>
 <script>
-    var app = angular.module('myApp', []);
-    app.controller('myController',
-        function ($scope, $http) {
-
-            var request = {
-                method: 'get',
-                url: '/api/routes',
-                dataType: 'json',
-                contentType: "application/json"
-            };
-
-            $scope.arrRoutes = new Array;
-
-            $http(request)
-                .success(function (jsonData) {
-                    $scope.arrRoutes = jsonData;
-                    $scope.list = $scope.arrRoutes;
-                })
-                .error(function () {
-
-                });
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 47.104231, lng: -88.55452},
+            zoom: 15
         });
+
+        map.data.loadGeoJson('../JSON/tolkeinTrails.geojson')
+    }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
+        async defer></script>
+</body>
 </html>
