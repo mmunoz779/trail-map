@@ -30,14 +30,18 @@ signup.prototype.signupUser = function (req, res, callback) {
     mysqlPool.getConnection(function (err, connection) {
         connection.query(accountExistsQuery, req.body.email, function (err, rows, fields) {
             if (rows.length > 0) {
-                accountExists = true;
-                callback(true, JSON.stringify({"error": "402: Bad request", "message": "Account already exists"}));
+                callback(true, JSON.stringify({"error": 402, "message": "Bad request: account already exists"}));
+            } else {
+                connection.query(signupQuery, params, function (err) {
+                    if (err)
+                        callback(true, JSON.stringify({
+                            "error": 500,
+                            "message": "Internal server error: unable to create account"
+                        }));
+                    callback(false, JSON.stringify({"success": 201, "message": "User registered successfully"}));
+                });
             }
         });
-        if (!accountExists) {
-            connection.query(signupQuery, params, function (err) {
-            });
-        }
     });
 };
 
