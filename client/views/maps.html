@@ -37,18 +37,21 @@
                 width = 5;
             }
             return /** @type {!google.maps.Data.StyleOptions} */({
-
                 strokeWeight: width
             });
         });
 
         // When the user clicks, set 'isColorful', changing the color of the letters.
         map.data.addListener('click', function(event) {
-            if (feature.getProperty('selected')){
-                event.feature.setProperty('selected', false);
-            }
+           // if (!feature.getProperty('selected')){
+                event.feature.setProperty('selected', true);
+           // }
         });
-
+    //    map.data.addListener('click', function(event) {
+     //       if (feature.getProperty('selected')){
+   //             event.feature.setProperty('selected', false);
+     //       }
+     //  });
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
