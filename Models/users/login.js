@@ -23,21 +23,23 @@ var login = function () {
 login.prototype.loginUser = function (req, res, callback) {
     var userValidated = false;
     var nowDate = new Date().toISOString().slice(0, 19).replace('T', ' '),
-        params = [req.body.email, req.body.password, 1],
+        params = [req.body.email, req.body.psw, 1],
         detailParams = [],
         updateParams = [],
         checkPasswordQuery = 'SELECT password FROM users WHERE email=?',
         loginUserQuery = 'SELECT * FROM users WHERE email = ?',
-        getDetailQuery = 'SELECT id, email, gender, lastLogin, name, role FROM users WHERE id = ?',
+        getDetailQuery = 'SELECT id, email, lastLogin, name, role FROM users WHERE id = ?',
         updateLastloginTime = 'UPDATE users SET lastLogin = ? WHERE id = ?'; //updates the date of lastlogin field
     mysqlPool.getConnection(function (err, connection) {
         connection.query(checkPasswordQuery, params, function (err, rows, fields) {
-            if (!passwordHash.verify(req.body.password, rows[0].password)) {
-                res.redirect('/login');
-                userValidated = true;
+            if (rows.length > 0 && !passwordHash.verify(req.body.psw, rows[0].password)) {
+                res.redirect('/login'); // Wrong password
+                return;
+            } else if (rows.length <= 0) {
+                res.redirect('/login'); // Account does not exist, redirect to login and add no account found alert
+                return;
             }
-        });
-        if (userValidated) {
+            // Correct password, continue
             connection.query(loginUserQuery, params, function (err, rows, fields) {
                 if (rows.length <= 0) {
                     connection.release();
@@ -54,11 +56,8 @@ login.prototype.loginUser = function (req, res, callback) {
                     });
                 }
             });
-        }
+        });
     });
-    if (userValidated) {
-        res.redirect("/maps");
-    }
 };
 
 module.exports = new login();

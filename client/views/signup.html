@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-<script>
-    function validateForm() {
-        var name = document.forms["myForm"]["name"].value;
-        if (x == "") {
-            alert("Name must be filled out");
-            return false;
-        }
-        var email = document.forms["myForm"]["email"].value;
-        if (!email.contains("@")) {
-            alert("Please enter a valid email");
-            return false;
-        }
-        var pass = document.forms["myForm"]["psw"].value;
-        if (pass == "") {
-            alert("Please enter a password");
-            return false;
-        } else if (pass != document.forms["myForm"]["psw"].value) {
-            alert("Please make sure your password and retyped password match");
-            return false;
-        }
-        return true;
-    }
-</script>
 <head>
     <title>Sign Up: AlphaTrails</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/navigation.js"></script>
+    <script>
+        function validateForm() {
+            var name = document.forms["myForm"]["name"].value;
+            if (name == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+            var email = document.forms["myForm"]["email"].value;
+            if (email.indexOf("@", 0) < 0 || email.indexOf(".", 0) < 0) {
+                alert("Please enter a valid email");
+                return false;
+            }
+            var pass = document.forms["myForm"]["psw"].value;
+            if (pass == "") {
+                alert("Please enter a password");
+                return false;
+            } else if (pass != document.forms["myForm"]["repsw"].value) {
+                alert("Please make sure your password and retyped password match");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>

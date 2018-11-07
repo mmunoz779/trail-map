@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/navigation.js"></script>
+    <script>
+        function validateForm() {
+            var email = document.forms["myForm"]["email"].value;
+            if (email.indexOf("@", 0) < 0 || email.indexOf(".", 0) < 0) {
+                alert("Please enter a valid email");
+                return false;
+            }
+            var pass = document.forms["myForm"]["psw"].value;
+            if (pass == "") {
+                alert("Please enter a password");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
 
 <h2>Login Form</h2>
 
-<form action="../php/action_page.php">
+<form action="/api/users/login" method="post" name="myForm" onsubmit="return validateForm()">
     <div class="imgcontainer">
         <img src="../assets/logo.png" alt="logo" class="logo">
     </div>
