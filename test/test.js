@@ -34,12 +34,11 @@ describe('Server-Test', function () {
                 .expect(200, done);
         });
     });
-    it('should respond with map.html to /maps', function testMaps(done) {
+    it('should respond 403 forbidden error to /maps', function testMaps(done) {
         describe('test status returned', function () {
             request(server)
                 .get('/maps')
-                .expect('Content-Type', /html/)
-                .expect(200, done);
+                .expect(403, done);
         });
     });
     it('should respond with signup.html to /signup', function testSignup(done) {

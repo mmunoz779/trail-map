@@ -18,9 +18,9 @@ logout.prototype.logoutUser = function (req, res, callback) {
     var sess = req.session.user;
     if (sess) {
         req.session.user = null;
-        return callback(null, {'success': true, "message": "user logout successfully"});
+        return callback(null, {'success': true, "message": "user logout successful"});
     }
-    callback(null, {'success': true, "message": "user logout successfully"});
+    callback(null, {'success': true, "message": "user logout successful"});
 };
 
 module.exports = new logout();

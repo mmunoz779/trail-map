@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
+
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
@@ -15,10 +16,73 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            background-color: #555555;
+        }
+
+
+        /* nav bar stylings*/
+        ul {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+            border: 1px solid #555555;
+            list-style-type: none;
+            background-color: #555555;
+        }
+
+        li {
+            float: right;
+            margin: 0;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        li a {
+            width: 100px;
+            display: block;
+            background-color: #555555;
+            color: white;
+            border: 1px solid #444444;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        li strong {
+            width: 100px;
+            background-color: #555555;
+            color: white;
+            border: 1px solid #444444;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        li a:hover {
+            background-color: #f1f1f1;
+            color: black;
         }
     </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#logoutLink").on("click", function (e) {
+                //e.preventDefault(); // cancel the link itself
+                $.post("/api/users/logout", function (data) {
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="/" id="logoutLink">Logout</a></li>
+        <li><a href="/profile">Profile</a></li>
+    </ul>
+</nav>
 <div id="map"></div>
 <script>
     var map;

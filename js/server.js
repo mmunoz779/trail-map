@@ -38,7 +38,8 @@ app.use(bodyParser.urlencoded({extended: true})); // body parse the JSON
 app.use(session({
     secret: "alphaomega",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    name: "id"
 }));
 
 // Handle routing

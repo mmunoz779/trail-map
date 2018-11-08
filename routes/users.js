@@ -45,7 +45,7 @@ router.post('/logout', function (req, res) {
             return;
         } else {
             // Redirect user home on successful logout
-            res.redirect('/');
+            return res.redirect('/'); // User logged out
             return;
         }
     });
