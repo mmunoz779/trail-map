@@ -656,6 +656,7 @@
         "name": "RingLoop",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2017-08-29T22:49:53Z"
       },
       "geometry": {
@@ -983,6 +984,7 @@
         "name": "GnomeLoop",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2017-10-25T18:54:32Z"
       },
       "geometry": {
@@ -1240,6 +1242,7 @@
         "name": "ElfLoop",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2017-10-25T18:58:58Z"
       },
       "geometry": {
@@ -1642,6 +1645,7 @@
         "name": "HobbitLoop",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2017-10-25T19:12:17Z"
       },
       "geometry": {
@@ -1854,6 +1858,7 @@
         "name": "DragonLoop",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2018-09-20T02:29:03Z"
       },
       "geometry": {
@@ -2406,6 +2411,7 @@
         "name": "TehcumsehTrail",
          "color": "purple",
          "selected": false,
+        "distance": 99,
         "time": "2017-10-25T19:20:46Z"
       },
       "geometry": {
