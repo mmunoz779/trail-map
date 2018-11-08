@@ -27,31 +27,38 @@
             center: {lat: 47.104231, lng: -88.55452},
             zoom: 15
         });
+        var distances = [];
+        map.data.loadGeoJson('../JSON/tolkeinTrails.geojson');
 
-        map.data.loadGeoJson('../JSON/tolkeinTrails.geojson')
-        // Color each letter gray. Change the color when the isColorful property
-        // is set to true.
         map.data.setStyle(function(feature) {
-            var width = 2;
+            var width = 4;
+
+            //'selected' boolean property in each feature
             if (feature.getProperty('selected')) {
-                width = 5;
+                width = 8;
+                distances.push(feature.getProperty('distance'));
             }
             return /** @type {!google.maps.Data.StyleOptions} */({
-                strokeWeight: width
+                strokeWeight: width,
+                strokeColor: feature.getProperty('color')
             });
         });
 
-        // When the user clicks, set 'isColorful', changing the color of the letters.
-        map.data.addListener('click', function(event) {
-           // if (!feature.getProperty('selected')){
-                event.feature.setProperty('selected', true);
-           // }
+        map.data.addListener('mouseover', function(event) {
+            map.data.revertStyle();
+            map.data.overrideStyle(event.feature, {strokeWeight: 8});
         });
-    //    map.data.addListener('click', function(event) {
-     //       if (feature.getProperty('selected')){
-   //             event.feature.setProperty('selected', false);
-     //       }
-     //  });
+
+        map.data.addListener('mouseout', function(event) {
+            map.data.revertStyle();
+        });
+
+        // When the user clicks, set 'selected', changing the width of trail
+        map.data.addListener('click', function (event) {
+            map.data.revertStyle();
+            event.feature.setProperty('selected', !event.feature.getProperty('selected'));
+        });
+
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"

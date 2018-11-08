@@ -10,6 +10,7 @@
         "name": "TrollLoop",
         "color": "purple",
         "selected": false,
+        "distance": 1.5,
         "time": "2017-10-25T18:41:36Z"
       },
       "geometry": {
@@ -452,6 +453,7 @@
         "name": "EntLoop",
          "color": "purple",
          "selected": false,
+         "distance": 0.8,
         "time": "2017-10-25T18:50:10Z"
       },
       "geometry": {
