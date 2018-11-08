@@ -27,8 +27,38 @@
             center: {lat: 47.104231, lng: -88.55452},
             zoom: 15
         });
+        var distances = [];
+        map.data.loadGeoJson('../JSON/tolkeinTrails.geojson');
 
-        map.data.loadGeoJson('../JSON/tolkeinTrails.geojson')
+        map.data.setStyle(function(feature) {
+            var width = 4;
+
+            //'selected' boolean property in each feature
+            if (feature.getProperty('selected')) {
+                width = 8;
+                distances.push(feature.getProperty('distance'));
+            }
+            return /** @type {!google.maps.Data.StyleOptions} */({
+                strokeWeight: width,
+                strokeColor: feature.getProperty('color')
+            });
+        });
+
+        map.data.addListener('mouseover', function(event) {
+            map.data.revertStyle();
+            map.data.overrideStyle(event.feature, {strokeWeight: 8});
+        });
+
+        map.data.addListener('mouseout', function(event) {
+            map.data.revertStyle();
+        });
+
+        // When the user clicks, set 'selected', changing the width of trail
+        map.data.addListener('click', function (event) {
+            map.data.revertStyle();
+            event.feature.setProperty('selected', !event.feature.getProperty('selected'));
+        });
+
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
