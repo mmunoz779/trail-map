@@ -1,121 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Routes</title>
+    <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
-            height: 75%;
+            height: 100%;
         }
         /* Optional: Makes the sample page fill the window. */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #555555;
         }
-
-
-        /* nav bar stylings*/
-        ul {
-            position: -webkit-sticky; /* Safari */
-            position: sticky;
-            top: 0;
-            overflow: hidden;
-            border: 1px solid #555555;
-            list-style-type: none;
-            background-color: #555555;
-        }
-
-        li {
-            float: right;
-            margin: 0;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            text-align: center;
-        }
-
-        li a {
-            width: 100px;
-            display: block;
-            background-color: #555555;
-            color: white;
-            border: 1px solid #444444;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            text-align: center;
-        }
-
-        li strong {
-            width: 100px;
-            background-color: #555555;
-            color: white;
-            border: 1px solid #444444;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            text-align: center;
-        }
-
-        li a:hover {
-            background-color: #f1f1f1;
-            color: black;
+        #info-box{
+            background-color: white;
+            border: 1px solid black;
+            bottom: 50px;
+            height: 25px;
+            padding: 10px;
+            position: absolute;
+            left: 30px;
         }
     </style>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-    <script>
-        $(function () {
-            $("#logoutLink").on("click", function (e) {
-                //e.preventDefault(); // cancel the link itself
-                $.post("/api/users/logout", function (data) {
-                });
-            });
-        });
-    </script>
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="/" id="logoutLink">Logout</a></li>
-        <li><a href="/profile">Profile</a></li>
-    </ul>
-</nav>
 <div id="map"></div>
-
-<div>
-    <p>Route Info:</p>
-    <p id="info"></p>
-</div>
-
+<div id="info-box">distance =   km</div>
 <script>
     var map;
+    var dis = 0.0;
     function initMap() {
-        var mapOptions = {
+        map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 47.104231, lng: -88.55452},
-            zoom: 15,
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        var distances = [];
+            zoom: 15
+        });
+        updateDist();
+
         map.data.loadGeoJson('../JSON/tolkeinTrails.geojson');
 
         map.data.setStyle(function(feature) {
+
+
             var width = 4;
-            var color = feature.getProperty('color');
 
             //'selected' boolean property in each feature
             if (feature.getProperty('selected')) {
                 width = 8;
-                color = 'blue';
-                distances.push(feature.getProperty('distance'));
             }
             return /** @type {!google.maps.Data.StyleOptions} */({
                 strokeWeight: width,
-                strokeColor: color
+                strokeColor: feature.getProperty('color')
             });
         });
+
 
         map.data.addListener('mouseover', function(event) {
             map.data.revertStyle();
@@ -130,19 +71,20 @@
         map.data.addListener('click', function (event) {
             map.data.revertStyle();
             event.feature.setProperty('selected', !event.feature.getProperty('selected'));
-            document.getElementById("info").innerHTML = sumDistance(distances);  //prints distance to "info" html tag
+            if (!event.feature.getProperty('selected')) {
+                 dis -= event.feature.getProperty('distance');
+            }
+            if (event.feature.getProperty('selected')) {
+                dis += event.feature.getProperty('distance');
+            }
+            updateDist();
         });
 
-    }
 
-    function sumDistance(distances) {
-        var sum = 0;
-        for (var i = 0; i < distances.length; i++) {
-            sum += distances[i];
-        }
-        return sum;
     }
-
+    function updateDist(){
+        document.getElementById('info-box').textContent = `distance = ${dis.toFixed(1)}km`;
+    }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
