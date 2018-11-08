@@ -10,13 +10,16 @@
         #map {
             height: 100%;
         }
+
         /* Optional: Makes the sample page fill the window. */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
+            background-color: #555555;
         }
-        #info-box{
+
+        #info-box {
             background-color: white;
             border: 1px solid black;
             bottom: 50px;
@@ -25,14 +28,78 @@
             position: absolute;
             left: 30px;
         }
+
+        /* nav bar stylings*/
+        ul {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+            border: 1px solid #555555;
+            list-style-type: none;
+            background-color: #555555;
+        }
+
+
+        li {
+            float: right;
+            margin: 0;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        li a {
+            width: 100px;
+            display: block;
+            background-color: #555555;
+            color: white;
+            border: 1px solid #444444;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+
+        li strong {
+            width: 100px;
+            background-color: #555555;
+            color: white;
+            border: 1px solid #444444;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+
+        li a:hover {
+            background-color: #f1f1f1;
+            color: black;
+        }
     </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#logoutLink").on("click", function (e) {
+                $.post("/api/users/logout", function (data) {
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="/" id="logoutLink">Logout</a></li>
+        <li><a href="/profile">Profile</a></li>
+    </ul>
+</nav>
 <div id="map"></div>
-<div id="info-box">distance =   km</div>
+<div class="infoBox" id="info-box">distance = km</div>
 <script>
     var map;
     var dis = 0.0;
+
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 47.104231, lng: -88.55452},
@@ -42,8 +109,7 @@
 
         map.data.loadGeoJson('../JSON/tolkeinTrails.geojson');
 
-        map.data.setStyle(function(feature) {
-
+        map.data.setStyle(function (feature) {
 
             var width = 4;
 
@@ -57,13 +123,12 @@
             });
         });
 
-
-        map.data.addListener('mouseover', function(event) {
+        map.data.addListener('mouseover', function (event) {
             map.data.revertStyle();
             map.data.overrideStyle(event.feature, {strokeWeight: 8});
         });
 
-        map.data.addListener('mouseout', function(event) {
+        map.data.addListener('mouseout', function (event) {
             map.data.revertStyle();
         });
 
@@ -72,7 +137,7 @@
             map.data.revertStyle();
             event.feature.setProperty('selected', !event.feature.getProperty('selected'));
             if (!event.feature.getProperty('selected')) {
-                 dis -= event.feature.getProperty('distance');
+                dis -= event.feature.getProperty('distance');
             }
             if (event.feature.getProperty('selected')) {
                 dis += event.feature.getProperty('distance');
@@ -80,9 +145,9 @@
             updateDist();
         });
 
-
     }
-    function updateDist(){
+
+    function updateDist() {
         document.getElementById('info-box').textContent = `distance = ${dis.toFixed(1)}km`;
     }
 
