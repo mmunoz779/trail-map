@@ -5,6 +5,7 @@ const port = 8080;
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var favicon = require('serve-favicon');
 var session = require('express-session');
 login = require('../models/users/login');
 logout = require('../models/users/logout');
@@ -29,6 +30,7 @@ app.engine('html', require('ejs').renderFile);
 
 // Configure static folder
 app.use(express.static(path.join(projectDirectory, 'client')));
+app.use(favicon(projectDirectory + "client/assets/favicon.ico"));
 
 // Handle parsing
 app.use(bodyParser.json());
