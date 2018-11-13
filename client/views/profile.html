@@ -7,6 +7,35 @@
 </head>
 <body>
 <input type="text" id="queryInput"/>
-Profile Page
+<h2>Profile Page</h2>
+
+<div class = "userInfo">
+    <h2><b>User Information</b></h2>
+
+</div>
+
+<div class = "favoriteRoutes">
+    <h2><b>Saved Routes</b></h2>
+</div>
+
+<div ng-app="myApp" ng-controller="customersCtrl">
+
+    <table>
+        <tr ng-repeat="x in users">
+            <td>{{ x.name }}</td>
+            <td>({ x.email }})</td>
+            <td>{{ x.lastLogin }}</td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("customers_mysql.php")
+            .then(function (response) {$scope.names = response.data.userinfo;});
+    });
+</script>
 </body>
 </html>
