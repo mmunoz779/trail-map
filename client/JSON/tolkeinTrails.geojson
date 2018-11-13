@@ -3233,7 +3233,7 @@
             "stroke-width": 2,
             "stroke-opacity": 1,
             "name": "CoreLoop",
-            "color": "green",
+            "color": "#6BD340",
             "distance": 1.26,
             "time": "2018-10-17T20:26:33Z"
           },
@@ -3560,7 +3560,7 @@
               "stroke-width": 2,
               "stroke-opacity": 1,
               "name": "BirchLoop",
-              "color": "green",
+              "color": "#6BD340",
               "distance": 0.82,
               "time": "2018-11-08T21:42:01.000Z"
             },
@@ -3792,7 +3792,7 @@
               "stroke-width": 2,
               "stroke-opacity": 1,
               "name": "PortageLoop",
-              "color": "green",
+              "color": "#6BD340",
               "distance": 1.1,
               "time": "2018-11-08T22:19:30Z"
             },
@@ -4089,7 +4089,7 @@
               "stroke-width": 2,
               "stroke-opacity": 1,
               "name": "OakLoop",
-              "color": "green",
+              "color": "#6BD340",
               "distance": 1.08,
               "time": "2018-11-08T21:46:31.000Z"
             },
