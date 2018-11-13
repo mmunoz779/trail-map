@@ -8,6 +8,7 @@ describe('Server-Test', function () {
     // Start the server before each test
     beforeEach(function () {
         // Delete cached server import and re-initialize for clean server
+        this.timeout(5000);
         delete require.cache[require.resolve('../js/server')];
         server = require('../js/server');
     });
