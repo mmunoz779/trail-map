@@ -9,6 +9,10 @@ form {
     border: 3px solid #555555;
 }
 
+h3 {
+    padding-left: 24px;
+}
+
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;

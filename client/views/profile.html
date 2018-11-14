@@ -4,40 +4,36 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="../css/styles.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
 </head>
 <body>
 <input type="text" id="queryInput"/>
 <h2>My Profile</h2>
 
-<div class = "userInfo">
+<div class="userInfo" ng-app="myApp" ng-controller="userInfoController">
     <h2><b>User Information</b></h2>
 
+    <h3>Email: {{users[0].email}}</h3>
+    <h3>Full Name: {{users[0].name}}</h3>
+    <h3>Last Login: {{users[0].lastLogin}}</h3>
+    <h3>User Role: {{users[0].role}}</h3>
 </div>
 
-<div class = "favoriteRoutes">
+<div class="favoriteRoutes">
     <h2><b>Saved Routes</b></h2>
 </div>
 
-<div ng-app="myApp" ng-controller="userInfoController">
-
-    <table>
-        <tr ng-repeat="x in users">
-            <td>{{x.name}}</td>
-            <td>{{x.email}}</td>
-            <td>{{x.lastLogin}}</td>
-        </tr>
-    </table>
-
-</div>
+</body>
 <script>
     var app = angular.module('myApp', []);
     app.controller('userInfoController', function ($scope, $http) {
-        // URL doesn't appear to be working
         $http.get("/api/users/info")
             .then(function (response) {
                 $scope.users = response.data;
+                console.log(response.data);
+                console.log($scope.users);
             });
     });
 </script>
-</body>
 </html>
