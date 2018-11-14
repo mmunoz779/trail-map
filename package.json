@@ -35,6 +35,7 @@
     "pre-git": {
       "enabled": true,
       "pre-push": [
+        "git pull",
         "npm install",
         "npm test"
       ],
