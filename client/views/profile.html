@@ -33,7 +33,7 @@
 <script>
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
-        $http.get("customers_mysql.php")
+        $http.get("api/users/info")
             .then(function (response) {$scope.names = response.data.userinfo;});
     });
 </script>
