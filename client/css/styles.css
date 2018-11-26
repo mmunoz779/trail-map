@@ -84,6 +84,16 @@ html, body {
     }
 }
 
+controlUI{
+    border: '2px solid #fff';
+    cursor: 'pointer';
+}
+
+controlText {
+    color: 'rgb(25,25,25)';
+    font: 'Roboto';
+}
+
 
 /* nav bar stylings*/
 nav {

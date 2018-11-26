@@ -35,7 +35,8 @@
         });
         updateDist();
 
-        map.data.loadGeoJson('../JSON/techTrails.geojson');
+        var trailData = '../JSON/tolkeinTrails.geojson'
+        map.data.loadGeoJson(trailData);
 
         map.data.setStyle(function (feature) {
 
@@ -73,11 +74,18 @@
             updateDist();
         });
 
-        var centerControlDiv = document.createElement('div');
-        var centerControl = new CenterControl(centerControlDiv, map);
+        var centerControlDiv1 = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv1, map);
 
-        centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        centerControlDiv1.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv1);
+
+
+        var centerControlDiv2 = document.createElement('div');
+        var saveControl = new RouteSaveControl(centerControlDiv2, map);
+
+        centerControlDiv2.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv2);
 
     }
 
@@ -116,6 +124,45 @@
             map.setZoom(15);
         });
 
+    }
+
+    function RouteSaveControl(controlDiv, map) {
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to save selected route';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Save selected route';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners
+        controlUI.addEventListener('click', function() {
+            controlText.innerHTML = 'saved';
+
+            var routeData = [];
+            var mapData = map.data;                   //json object (array) of map data
+            mapData.forEach(function(feature) {
+                if (feature.getProperty('selected')) {
+                    routeData.push(feature);
+                    console.log(feature.getProperty('name'));
+                }
+            });
+        });
     }
 
 </script>
