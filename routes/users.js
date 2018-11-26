@@ -4,6 +4,7 @@ var express = require('express'),
 logout = require('../models/users/logout');
 signup = require('../models/users/signup');
 info = require('../models/users/info');
+routes = require('../models/users/routes');
 
 router.use('/', function (req, res, next) {
     // Add middleware to handle time logging
@@ -66,6 +67,16 @@ router.get('/info', function (req, res) {
             res.send(data);
         }
     });
+});
+
+router.get('/routes', function (req, res) {
+    routes.getUserRoutes(req, res, function (err, data) {
+        if (err) {
+            res.json({'error': data.error, 'message': data.message});
+        } else {
+            res.send(data);
+        }
+    })
 });
 
 module.exports = router;

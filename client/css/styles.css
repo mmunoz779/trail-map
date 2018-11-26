@@ -83,3 +83,56 @@ html, body {
         width: 100%;
     }
 }
+
+
+/* nav bar stylings*/
+nav {
+    border-bottom: 1px solid whitesmoke;
+}
+
+ul {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    border: 1px solid #555555;
+    list-style-type: none;
+    background-color: #555555;
+}
+
+
+li {
+    float: right;
+    margin: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+li a {
+    width: 100px;
+    display: block;
+    background-color: #555555;
+    color: white;
+    border: 1px solid #444444;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+
+li strong {
+    width: 100px;
+    background-color: #555555;
+    color: white;
+    border: 1px solid #444444;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+
+li a:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
