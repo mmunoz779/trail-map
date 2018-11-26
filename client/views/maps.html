@@ -35,7 +35,7 @@
         });
         updateDist();
 
-        var trailData = '../JSON/tolkeinTrails.geojson'
+        var trailData = '../JSON/techTrails.geojson'
         map.data.loadGeoJson(trailData);
 
         map.data.setStyle(function (feature) {
@@ -158,10 +158,12 @@
             var mapData = map.data;                   //json object (array) of map data
             mapData.forEach(function(feature) {
                 if (feature.getProperty('selected')) {
-                    routeData.push(feature);
+                    routeData.push(feature.getProperty('name'));
                     console.log(feature.getProperty('name'));
+                    //JSON.stringify(feature);
                 }
             });
+            console.log(dis);
         });
     }
 
