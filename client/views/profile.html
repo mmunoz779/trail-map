@@ -4,38 +4,46 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="../css/styles.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+    <script>
+        $(function () {
+            $("#logoutLink").on("click", function (e) {
+                $.post("/api/users/logout", function (data) {
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-<input type="text" id="queryInput"/>
-<h2>Profile Page</h2>
+<nav>
+    <ul>
+        <li><a href="/" id="logoutLink">Logout</a></li>
+        <li><a href="/maps">Maps</a></li>
+    </ul>
+</nav>
 
-<div class = "userInfo">
-    <h2><b>User Information</b></h2>
+<div align="center" class="userInfo" ng-app="myApp" ng-controller="userInfoController">
+    <h2><b>User Info</b></h2>
 
+    <h3>Email: {{users[0].email}}</h3>
+    <h3>Full Name: {{users[0].name}}</h3>
+    <h3>Last Login: {{users[0].lastLogin}}</h3>
+    <h3>User Role: {{users[0].role}}</h3>
 </div>
 
-<div class = "favoriteRoutes">
+<div align="center" class="favoriteRoutes">
     <h2><b>Saved Routes</b></h2>
 </div>
 
-<div ng-app="myApp" ng-controller="customersCtrl">
-
-    <table>
-        <tr ng-repeat="x in users">
-            <td>{{ x.name }}</td>
-            <td>{{ x.email }}</td>
-            <td>{{ x.lastLogin }}</td>
-        </tr>
-    </table>
-
-</div>
-
+</body>
 <script>
     var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-        $http.get("api/users/info")
-            .then(function (response) {$scope.names = response.data.userinfo;});
+    app.controller('userInfoController', function ($scope, $http) {
+        $http.get("/api/users/info")
+            .then(function (response) {
+                $scope.users = response.data;
+            });
     });
 </script>
-</body>
 </html>
