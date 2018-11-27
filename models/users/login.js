@@ -54,13 +54,6 @@ login.prototype.loginUser = function (req, res, callback) {
     });
 };
 
-login.prototype.closeConnections = function () {
-    if (mysqlPool != undefined) {
-        mysqlPool.end();
-        mysqlPool = undefined;
-    }
-};
-
 function createPool() {
     if (mysqlPool === undefined) {
         mysqlPool = mysql.createPool({

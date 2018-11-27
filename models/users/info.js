@@ -1,5 +1,3 @@
-var passwordHash = require('password-hash');
-
 var mysql = require("../db.js"),
     mysqlPool = mysql.createPool();
 /**
@@ -33,6 +31,7 @@ info.prototype.getUserInfo = function (req, res, callback) {
                         connection.release();
                         callback(true, null);
                     } else {
+                        connection.release();
                         callback(false, rows);
                     }
                 });
@@ -40,13 +39,6 @@ info.prototype.getUserInfo = function (req, res, callback) {
         });
     } else {
         res.redirect('/login');
-    }
-};
-
-info.prototype.closeConnections = function () {
-    if (mysqlPool != undefined) {
-        mysqlPool.end();
-        mysqlPool = undefined;
     }
 };
 
