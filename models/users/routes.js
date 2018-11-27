@@ -32,6 +32,7 @@ routes.prototype.getUserRoutes = function (req, res, callback) {
                         connection.release();
                         callback(true, null);
                     } else {
+                        connection.release();
                         callback(false, rows);
                     }
                 });
