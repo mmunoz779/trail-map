@@ -25,6 +25,7 @@
   },
   "scripts": {
     "start": "node js/server.js",
+    "nodemon": "nodemon js/server.js",
     "test": "nyc --reporter=html --reporter=text mocha",
     "commit": "commit-wizard"
   },
