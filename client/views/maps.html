@@ -23,8 +23,29 @@
         <li><a href="/profile">Profile</a></li>
     </ul>
 </nav>
+
+<form name="myForm" action="/api/users/routes" onsubmit="return validateRouteName()" method="post" hidden id="myForm">
+
+    <div class="container">
+
+        <label for="name"><b>Route Name</b></label>
+        <input type="text" placeholder="Enter Route Name" name="routeName" required>
+
+        <!-- Add information validation script to check valid login info and email-->
+        <button type="submit">Submit Name</button>
+    </div>
+
+    <div class="container">
+        <button type="button" class="cancelbtn"
+                onclick="navigateHome()">Cancel
+        </button>
+    </div>
+</form>
+
 <div id="map"></div>
 <div class="infoBox" id="info-box">distance = km</div>
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
         async defer></script>
