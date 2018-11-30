@@ -1,5 +1,14 @@
 var map;
 var dis = 0.0;
+var routeName = "";
+
+function setRouteName(var name) {
+    routeName = name;
+}
+
+function getDis() {
+    return dis;
+}
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -126,21 +135,30 @@ function RouteSaveControl(controlDiv, map) {
     // Setup the click event listeners
     controlUI.addEventListener('click', function() {
 
-        //add something that checks if any routes are actually selected
-
-        $("#myForm").show();
-        //controlText.innerHTML = 'saved';
-
-        var routeData = [];
         var mapData = map.data;                   //json object (array) of map data
-        mapData.forEach(function(feature) {
+
+        //checks if any routes are actually selected
+        var sel = false;
+        mapData.forEach(function (feature) {
             if (feature.getProperty('selected')) {
-                routeData.push(feature.getProperty('name'));
-                console.log(feature.getProperty('name'));
-                //JSON.stringify(feature);
+                sel = true;
             }
         });
-        console.log(dis.toFixed(1));
+
+        if (sel) {
+            $("#myForm").show();
+            //controlText.innerHTML = 'saved';
+
+            var routeData = [];
+            mapData.forEach(function (feature) {
+                if (feature.getProperty('selected')) {
+                    routeData.push(feature.getProperty('name'));
+                    console.log(feature.getProperty('name'));
+                    //JSON.stringify(feature);
+                }
+            });
+            console.log(dis.toFixed(1));
+        }
     });
 }
 
