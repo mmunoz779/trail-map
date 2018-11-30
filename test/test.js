@@ -88,7 +88,10 @@ describe('Server-Test', function () {
                             repsw: "doesn't matter"
                         })
                         .expect('Content-Type', /html/)
-                        .expect(400, done);
+                        .expect(200, {
+                            error: true,
+                            message: "exists"
+                        }, done);
                 });
             });
             it('should respond with 201 success when trying to create a new user', function testValidSignup(done) {
