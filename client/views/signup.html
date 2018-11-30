@@ -5,8 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/navigation.js"></script>
-    <script>
-        function validateForm() {
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+
+<h2>Sign Up</h2>
+
+<form name="myForm" ng-app="myApp" ng-submit="validateUser()">
+    <div class="imgcontainer">
+        <img src="../assets/logo.png" alt="logo" class="logo">
+    </div>
+
+    <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <label for="repsw"><b>Re-type Password</b></label>
+        <input type="password" placeholder="Re-type Password" name="repsw" required>
+
+        <div class = "error">
+            <p>{{error}}</p>
+        </div>
+        <!-- Add information validation script to check valid login info and email-->
+        <button type="submit">Login</button>
+    </div>
+
+    <div class="container">
+        <button type="button" class="cancelbtn"
+                onclick="navigateHome()">Cancel
+        </button>
+    </div>
+</form>
+<script>
+    var app = angular.module(["myApp"],[]);
+    app.controller('validateUserController',function validateUser($scope, $http){
+        $scope.validateUser = function () {
+            console.log('submitting...');
             var name = document.forms["myForm"]["name"].value;
             if (name == "") {
                 alert("Name must be filled out");
@@ -25,43 +67,35 @@
                 alert("Please make sure your password and retyped password match");
                 return false;
             }
-            return true;
+            var request = $http({
+                method: 'post',
+                url: '/api/users/singup',
+                data: {
+                    email: email,
+                    name: name,
+                    psw: pass
+                }
+            });
+            request.success((response) => {
+                if (response.error == true) {
+                    switch (response.message) {
+                        case 'exists':
+                            $scope.error = 'An account with this email already exists';
+                            break;
+
+                        default:
+                            $scope.error = 'Internal server error, please try again later';
+                            break;
+                    }
+                } else {
+                    window.location.href = "/login";
+                }
+            });
+            request.error((data, status) => {
+                $scope.error = "Server not responding, please try again later"
+            });
         }
-    </script>
-</head>
-
-<body>
-
-<h2>Sign Up</h2>
-
-<form name="myForm" action="/api/users/signup" onsubmit="return validateForm()" method="post">
-    <div class="imgcontainer">
-        <img src="../assets/logo.png" alt="logo" class="logo">
-    </div>
-
-    <div class="container">
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-
-        <label for="name"><b>Name</b></label>
-        <input type="text" placeholder="Enter Name" name="name" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <label for="repsw"><b>Re-type Password</b></label>
-        <input type="password" placeholder="Re-type Password" name="repsw" required>
-
-        <!-- Add information validation script to check valid login info and email-->
-        <button type="submit">Login</button>
-    </div>
-
-    <div class="container">
-        <button type="button" class="cancelbtn"
-                onclick="navigateHome()">Cancel
-        </button>
-    </div>
-</form>
-
+    })
+</script>
 </body>
 </html>

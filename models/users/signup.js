@@ -1,4 +1,5 @@
 var passwordHash = require('password-hash');
+var querystring = require('querystring');
 
 // Create the database pool for users using the database userinfo
 var mysql = require("../db.js"),

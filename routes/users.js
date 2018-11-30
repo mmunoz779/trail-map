@@ -30,7 +30,7 @@ router.post('/signup', function (req, res) {
             if (data.message.toString().indexOf("already exists") > 0) {
                 // Set bad request status and redirect to account exists page (replace with login page and warning later)
                 res.status(400);
-                res.render("accountExists.html");
+                res.redirect("/signup?exists=TRUE");
             } else {
                 res.json({'error': data.error, 'message': data.message});
             }
