@@ -125,7 +125,11 @@ function RouteSaveControl(controlDiv, map) {
 
     // Setup the click event listeners
     controlUI.addEventListener('click', function() {
-        controlText.innerHTML = 'saved';
+
+        //add something that checks if any routes are actually selected
+
+        $("#myForm").show();
+        //controlText.innerHTML = 'saved';
 
         var routeData = [];
         var mapData = map.data;                   //json object (array) of map data
@@ -133,7 +137,7 @@ function RouteSaveControl(controlDiv, map) {
             if (feature.getProperty('selected')) {
                 routeData.push(feature.getProperty('name'));
                 console.log(feature.getProperty('name'));
-                JSON.stringify(feature);
+                //JSON.stringify(feature);
             }
         });
         console.log(dis.toFixed(1));
@@ -141,5 +145,9 @@ function RouteSaveControl(controlDiv, map) {
 }
 
 function loadSavedRoute() {
+
+}
+
+function validateRouteName() {
 
 }
