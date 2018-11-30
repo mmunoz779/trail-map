@@ -63,7 +63,6 @@
                 }
             });
             request.success((response) => {
-                console.log("response is: { error: " + response.error + ", message: " + response.message + "}");
                 if (response.error == true) {
                     switch (response.message) {
                         case 'does not exist':

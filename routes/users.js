@@ -15,11 +15,9 @@ router.use('/', function (req, res, next) {
 router.post('/login', function (req, res) {
     login.loginUser(req, res, function (err, data) {
         if (err) {
-            res.status(400);
             res.json({'error': true, 'message': data});
         } else {
-            res.status(200);
-            res.json({'error': false, 'message': 'Logged in successfully'});
+            res.json(200, {'error': false, 'message': 'Logged in successfully'});
         }
     });
 });
