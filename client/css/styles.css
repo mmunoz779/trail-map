@@ -5,6 +5,10 @@ body {
 
 }
 
+.error {
+    color: #ff0000;
+}
+
 form {
     border: 3px solid #555555;
 }

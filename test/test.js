@@ -144,7 +144,10 @@ describe('Server-Test', function () {
                             email: "BadEmailTest@BadEmailTest.com",
                             psw: "doesn't matter",
                         })
-                        .expect(400).end(function (err, res) {
+                        .expect(200, {
+                            error: true,
+                            message: "does not exist"
+                        }).end(function (err, res) {
                         if (err) return done(err);
                         else {
                             var connection = mysql.createConnection({
@@ -179,7 +182,10 @@ describe('Server-Test', function () {
                             email: "admin@alphatrails.com",
                             psw: "incorrectPass",
                         })
-                        .expect(400).end(function (err, res) {
+                        .expect(200, {
+                            error: true,
+                            message: "wrong password"
+                        }).end(function (err, res) {
                         if (err) return done(err);
                         else {
                             var connection = mysql.createConnection({
