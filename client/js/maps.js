@@ -2,7 +2,7 @@ var map;
 var dis = 0.0;
 var routeName = "";
 
-function setRouteName(var name) {
+function setRouteName(name) {
     routeName = name;
 }
 
@@ -160,6 +160,10 @@ function RouteSaveControl(controlDiv, map) {
             console.log(dis.toFixed(1));
         }
     });
+}
+
+function hideForm() {
+    $("#myForm").hide();
 }
 
 function loadSavedRoute() {

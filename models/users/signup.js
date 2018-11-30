@@ -26,20 +26,21 @@ signup.prototype.signupUser = function (req, res, callback) {
     createPool();
     mysqlPool.getConnection(function (err, connection) {
         if (connection === undefined) {
-            callback(true, JSON.stringify({error: 500, message: "Internal Server error: pool is ended"}));
+            callback(true, "Internal Server error: pool is ended");
         } else {
             connection.query(accountExistsQuery, req.body.email, function (err, rows, fields) {
                 if (rows.length > 0) {
-                    callback(true, JSON.stringify({error: 400, message: "Bad request: account already exists"}));
+                    connection.release();
+                    callback(true, "exists");
                 } else {
                     // Register the user in the database
                     connection.query(signupQuery, params, function (err) {
-                        if (err)
-                            callback(true, JSON.stringify({
-                                error: 500,
-                                message: "Internal server error: unable to create account"
-                            }));
-                        callback(false, JSON.stringify({success: 201, message: "User registered successfully"}));
+                        if (err) {
+                            connection.release();
+                            callback(true, "Internal server error");
+                        }
+                        connection.release();
+                        callback(false, "User registered successfully");
                     });
                 }
             });

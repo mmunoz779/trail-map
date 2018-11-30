@@ -26,20 +26,13 @@ router.post('/login', function (req, res) {
 router.post('/signup', function (req, res) {
     signup.signupUser(req, res, function (err, data) {
         if (err) {
-            data = JSON.parse(data);
-            if (data.message.toString().indexOf("already exists") > 0) {
                 // Set bad request status and redirect to account exists page (replace with login page and warning later)
-                res.status(400);
-                res.redirect("/signup?exists=TRUE");
+            res.json({'error': true, 'message': data});
             } else {
-                res.json({'error': data.error, 'message': data.message});
+            res.json(302, {'error': data.error, 'message': data.message});
             }
-            return;
-        } else {
-            res.redirect('/login');
-            return;
         }
-    });
+    );
 });
 
 // Handle logout functionality
