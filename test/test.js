@@ -87,7 +87,7 @@ describe('Server-Test', function () {
                             psw: "doesn't matter",
                             repsw: "doesn't matter"
                         })
-                        .expect('Content-Type', /html/)
+                        .expect('Content-Type', /json/)
                         .expect(200, {
                             error: true,
                             message: "exists"
@@ -223,7 +223,7 @@ describe('Server-Test', function () {
                                 email: "admin@alphatrails.com",
                                 psw: "incorrectPass",
                             })
-                            .expect(302).end(function (err, res) {
+                            .expect(200).end(function (err, res) {
                             if (err) return done(err);
                             else {
                                 var connection = mysql.createConnection({
