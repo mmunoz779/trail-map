@@ -79,6 +79,9 @@
                     window.location.href = "/maps";
                 }
             });
+            request.error((data, status) => {
+                $scope.error = "Server not responding, please try again later"
+            });
         }
     });
 </script>
