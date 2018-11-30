@@ -5,28 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/navigation.js"></script>
-    <script>
-        function validateForm() {
-            var email = document.forms["myForm"]["email"].value;
-            if (email.indexOf("@", 0) < 0 || email.indexOf(".", 0) < 0) {
-                alert("Please enter a valid email");
-                return false;
-            }
-            var pass = document.forms["myForm"]["psw"].value;
-            if (pass == "") {
-                alert("Please enter a password");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="validateUserController">
 
 <h2>Login Form</h2>
 
-<form action="/api/users/login" method="post" name="myForm" onsubmit="return validateForm()">
+<form name="myForm" ng-app="myApp" ng-submit="validateUser()">
     <div class="imgcontainer">
         <img src="../assets/logo.png" alt="logo" class="logo">
     </div>
@@ -40,7 +27,7 @@
         <input type="password" placeholder="Enter Password" name="psw" required>
         <!-- Hidden div for adding error information such as bad password-->
         <div class="error">
-
+            <p>{{error}}</p>
         </div>
 
         <button type="submit">Login</button>
@@ -52,5 +39,49 @@
         </button>
     </div>
 </form>
+<script>
+    var app = angular.module(['myApp'], []);
+    app.controller('validateUserController', function validateUser($scope, $http) {
+        $scope.validateUser = function () {
+            console.log('submitting...');
+            var email = document.forms["myForm"]["email"].value;
+            if (email.indexOf("@", 0) < 0 || email.indexOf(".", 0) < 0) {
+                alert("Please enter a valid email");
+                return false;
+            }
+            var pass = document.forms["myForm"]["psw"].value;
+            if (pass == "") {
+                alert("Please enter a password");
+                return false;
+            }
+            var request = $http({
+                method: 'post',
+                url: '/api/users/login',
+                data: {
+                    email: email,
+                    psw: pass
+                }
+            });
+            request.success((response) => {
+                console.log("response is: { error: " + response.error + ", message: " + response.message + "}");
+                if (response.error == true) {
+                    switch (response.message) {
+                        case 'does not exist':
+                            $scope.error = 'There is no account associated with this email';
+                            break;
+                        case 'wrong password' :
+                            $scope.error = 'Incorrect password';
+                            break;
+                        default:
+                            $scope.error = 'Internal server error, please try again later';
+                            break;
+                    }
+                } else {
+                    window.location.href = "/maps";
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

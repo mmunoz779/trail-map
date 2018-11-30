@@ -32,8 +32,11 @@
     <h3>User Role: {{users[0].role}}</h3>
 </div>
 
-<div align="center" class="favoriteRoutes">
+<div align="center" class="favoriteRoutes" ng-app="myApp" ng-controller="userInfoController">
     <h2><b>Saved Routes</b></h2>
+    <table border=1px>
+        <!-- Add table later -->
+    </table>
 </div>
 
 </body>
@@ -44,6 +47,10 @@
             .then(function (response) {
                 $scope.users = response.data;
             });
+        $http.get("/api/users/routes")
+            .then((response) => {
+                $scope.routes = response.data;
+            })
     });
 </script>
 </html>

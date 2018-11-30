@@ -8,18 +8,16 @@ routes = require('../models/users/routes');
 
 router.use('/', function (req, res, next) {
     // Add middleware to handle time logging
-    console.log('Users API was accessed at ' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
+    console.log('Users API was accessed at ' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ' '));
     next();
 });
 
 router.post('/login', function (req, res) {
     login.loginUser(req, res, function (err, data) {
         if (err) {
-            res.json({'error': true, 'message': 'Error logged in'});
-            return;
+            res.json({'error': true, 'message': data});
         } else {
-            res.redirect('/maps');
-            return;
+            res.json({'error': false, 'message': 'Logged in successfully'});
         }
     });
 });
@@ -75,6 +73,16 @@ router.get('/routes', function (req, res) {
             res.json({'error': data.error, 'message': data.message});
         } else {
             res.send(data);
+        }
+    })
+});
+
+router.post('/routes', function (req, res) {
+    routes.setUserRoutes(req, res, function (err, data) {
+        if (err) {
+            res.json({'error': data.error, 'message': data.message});
+        } else {
+            res.redirect('/profile');
         }
     })
 });
