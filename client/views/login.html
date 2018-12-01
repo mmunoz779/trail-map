@@ -20,6 +20,10 @@
 
     <div class="container">
 
+        <div class="success">
+            <p>{{success}}</p>
+        </div>
+
         <label for="uname"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required>
 
@@ -41,7 +45,12 @@
 </form>
 <script>
     var app = angular.module(['myApp'], []);
-    app.controller('validateUserController', function validateUser($scope, $http) {
+    app.controller('validateUserController', function validateUser($scope, $http, $location) {
+        var tempObj = $location.search();
+        console.log(JSON.stringify(tempObj));
+        if (tempObj.success) {
+            $scope.success = "Successfully signed up, please login with your new account";
+        }
         $scope.validateUser = function () {
             console.log('submitting...');
             var email = document.forms["myForm"]["email"].value;

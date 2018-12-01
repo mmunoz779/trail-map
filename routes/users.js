@@ -29,7 +29,7 @@ router.post('/signup', function (req, res) {
                 // Set bad request status and redirect to account exists page (replace with login page and warning later)
             res.json({'error': true, 'message': data});
             } else {
-            res.json(302, {'error': data.error, 'message': data.message});
+            res.json({'error': false, 'message': data.message});
             }
         }
     );

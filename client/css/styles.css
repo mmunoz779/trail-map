@@ -9,6 +9,10 @@ body {
     color: #ff0000;
 }
 
+.success {
+    color: #4CAF50;
+}
+
 form {
     border: 3px solid #555555;
 }
