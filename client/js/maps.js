@@ -65,7 +65,6 @@ function initMap() {
 
     var centerControlDiv2 = document.createElement('div');
     var saveControl = new RouteSaveControl(centerControlDiv2, map);
-
     centerControlDiv2.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv2);
 
@@ -157,7 +156,9 @@ function RouteSaveControl(controlDiv, map) {
                     //JSON.stringify(feature);
                 }
             });
-            console.log(dis.toFixed(1));
+
+            $("#myForm")['segments'].value = routeData.toString();
+            $("#myForm")['distance'].value = dis;
         }
     });
 }
@@ -166,8 +167,15 @@ function hideForm() {
     $("#myForm").hide();
 }
 
-function loadSavedRoute() {
+function loadSavedRoute(selectArray, mapData) {
 
+    for (var i = 0; i < selectArray.length - 1; i++) {
+        mapData.forEach(function (feature) {
+            if (selectArray[i] == feature.getProperty('name')) {
+                feature.setProperty('selected', true);
+            }
+        });
+    }
 }
 
 function validateRouteName() {
