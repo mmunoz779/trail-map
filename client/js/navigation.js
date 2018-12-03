@@ -14,3 +14,7 @@ function navigateSignup() {
 function navigateMaps() {
     window.location.href = "/maps";
 }
+
+function navigateProfile() {
+    window.location.href = "/profile";
+}

@@ -157,8 +157,8 @@ function RouteSaveControl(controlDiv, map) {
                 }
             });
 
-            $("#myForm")['segments'].value = routeData.toString();
-            $("#myForm")['distance'].value = dis;
+            document.forms["myForm"]["routeSegments"].value  = routeData.toString();
+            document.forms["myForm"]["distance"].value = dis;
         }
     });
 }
