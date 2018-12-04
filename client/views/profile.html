@@ -32,22 +32,21 @@
     <h3>User Role: {{users[0].role}}</h3>
 </div>
 
-<div align="center" class="favoriteRoutes" ng-app="myApp" ng-controller="userInfoController">
+<div align="center" class="favoriteRoutes" ng-app="myApp" ng-controller="savedRouteController">
     <h2><b>Saved Routes</b></h2>
     <table border=1px>
+	<tr>
+		<th>Route</th>
+		<th>Distance</th>
+		<th></th>
+	<tr>
+	<tr ng-repeat="x in routes">
+		<td>{{x.route}}</td>
+		<td>{{x.distance}}</td>
+		<td><button ng-click="edit(item)">Edit</button></td>
         <!-- Add table later -->
-    </table>
-</div>
-
-<div>
-    <table>
-        <tbody>
-        <tr>
-            <td>Route</td>
-            <td>Distance</td>
-            <td>&nbsp;</td>
-        </tr>
-        </tbody>
+	</tr>
+        <!-- Add table later -->
     </table>
 </div>
 
@@ -57,12 +56,15 @@
     app.controller('userInfoController', function ($scope, $http) {
         $http.get("/api/users/info")
             .then(function (response) {
+			console.log("hello");
                 $scope.users = response.data;
             });
+    });
+	app.controller('savedRouteController', function ($scope, $http) {
         $http.get("/api/users/routes")
             .then((response) => {
                 $scope.routes = response.data;
-            })
+            });
     });
 </script>
 </html>
