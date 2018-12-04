@@ -50,9 +50,9 @@ routes.prototype.getUserRoutes = function (req, res, callback) {
  */
 routes.prototype.setUserRoutes = function (req, res, callback) {
     if (req.session.user) {
-        var params = [req.name, req.session.user.email, req.route, req.distance],
-            passParams = [req.session.email],
-            checkPasswordQuery = 'SELECT password FROM savedRoutes WHERE email=?',
+        var params = [req.body.name, req.session.user.email, req.body.route, req.body.distance],
+            passParams = [req.session.user.email],
+            checkPasswordQuery = 'SELECT password FROM users WHERE email=?',
             setRoutesQuery = 'INSERT INTO savedRoutes(name,email,route,distance) VALUES(?,?,?,?)';
         createPool();
         mysqlPool.getConnection(function (err, connection) {
@@ -62,10 +62,10 @@ routes.prototype.setUserRoutes = function (req, res, callback) {
                     return;
                 }
                 // Correct password, continue
-                connection.query(setRoutesQuery, params, function (err, rows, fields) {
-                    if (rows.length <= 0) {
+                connection.query(setRoutesQuery, params, function (err) {
+                    if (err) {
                         connection.release();
-                        callback(true, null);
+                        callback(true, 'error occurred');
                     } else {
                         connection.release();
                         callback(false, rows);

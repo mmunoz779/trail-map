@@ -73,9 +73,9 @@ router.get('/routes', function (req, res) {
 router.post('/routes', function (req, res) {
     routes.setUserRoutes(req, res, function (err, data) {
         if (err) {
-            res.json({'error': data.error, 'message': data.message});
+            res.json({'error': true, 'message': data.message});
         } else {
-            res.redirect('/profile');
+            res.json(200, {'error': false, 'message': 'Route Added Successfully'});
         }
     })
 });
