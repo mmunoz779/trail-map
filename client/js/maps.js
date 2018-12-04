@@ -12,7 +12,7 @@ function getDis() {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 47.104231, lng: -88.55452},
+        center: {lat: 47.102929, lng: -88.551937},
         zoom: 15
     });
     updateDist();
@@ -101,7 +101,7 @@ function CenterControl(controlDiv, map) {
 
     // Setup the click event listeners
     controlUI.addEventListener('click', function() {
-        map.setCenter({lat: 47.104231, lng: -88.55452});
+        map.setCenter({lat: 47.102929, lng: -88.551937});
         map.setZoom(15);
     });
 
@@ -167,7 +167,11 @@ function hideForm() {
     $("#myForm").hide();
 }
 
-function loadSavedRoute(selectArray, mapData) {
+function loadSavedRoute(selectArray) {
+
+    var trailData = '../JSON/techTrails.geojson'
+    map.data.loadGeoJson(trailData);
+    var mapData = map.data;
 
     for (var i = 0; i < selectArray.length - 1; i++) {
         mapData.forEach(function (feature) {
