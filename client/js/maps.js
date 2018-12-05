@@ -169,7 +169,7 @@ function hideForm() {
 
 function loadSavedRoute(selectArray) {
 
-    var trailData = '../JSON/techTrails.geojson'
+    var trailData = '../JSON/techTrails.geojson';
     map.data.loadGeoJson(trailData);
     var mapData = map.data;
 

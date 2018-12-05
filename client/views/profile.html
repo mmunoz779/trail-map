@@ -16,7 +16,7 @@
     </script>
     <script src="../js/maps.js"></script>
 </head>
-<body>
+<body ng-app="myApp">
 <nav>
     <ul>
         <li><a href="/" id="logoutLink">Logout</a></li>
@@ -24,7 +24,7 @@
     </ul>
 </nav>
 
-<div align="center" class="userInfo" ng-app="myApp" ng-controller="userInfoController">
+<div align="center" class="userInfo" ng-app="myApp" ng-controller="userInfoController ">
     <h2><b>User Info</b></h2>
     <h3>Email: {{users[0].email}}</h3>
     <h3>Full Name: {{users[0].name}}</h3>
@@ -35,36 +35,40 @@
 <div align="center" class="favoriteRoutes" ng-app="myApp" ng-controller="savedRouteController">
     <h2><b>Saved Routes</b></h2>
     <table border=1px>
-	<tr>
-		<th>Route</th>
-		<th>Distance</th>
-		<th></th>
-	<tr>
-	<tr ng-repeat="x in routes">
-		<td>{{x.route}}</td>
-		<td>{{x.distance}}</td>
-		<td><button ng-click="edit(item)">Edit</button></td>
-        <!-- Add table later -->
-	</tr>
-        <!-- Add table later -->
+        <tr>
+            <th style="justify-content: center; width: 250px;">Name</th>
+            <th hidden>Route</th>
+            <th>Distance</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="x in routes">
+            <td style="justify-content: center">{{x.name}}</td>
+            <td style="justify-content: center">{{x.distance}}</td>
+            <td style="justify-content: center">
+                <button ng-click="edit(x)">Edit</button>
+            </td>
+        </tr>
     </table>
 </div>
 
-</body>
 <script>
     var app = angular.module('myApp', []);
     app.controller('userInfoController', function ($scope, $http) {
         $http.get("/api/users/info")
             .then(function (response) {
-			console.log("hello");
                 $scope.users = response.data;
             });
     });
-	app.controller('savedRouteController', function ($scope, $http) {
+    app.controller('savedRouteController', function ($scope, $http) {
+        $scope.edit = function (row) {
+            window.location.href = "/maps#?routeData=" + row.route;
+        }
         $http.get("/api/users/routes")
-            .then((response) => {
+            .then(function (response) {
                 $scope.routes = response.data;
             });
     });
 </script>
+
+</body>
 </html>

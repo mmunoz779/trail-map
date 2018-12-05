@@ -17,7 +17,7 @@ router.post('/login', function (req, res) {
         if (err) {
             res.json({'error': true, 'message': data});
         } else {
-            res.json(200, {'error': false, 'message': 'Logged in successfully'});
+            res.json({'error': false, 'message': 'Logged in successfully'});
         }
     });
 });
@@ -41,11 +41,9 @@ router.post('/logout', function (req, res) {
         // Respond with error message if unable to logout successfully
         if (err) {
             res.json({'error': data.error, 'message': data.message});
-            return;
         } else {
             // Redirect user home on successful logout
             return res.redirect('/'); // User logged out
-            return;
         }
     });
 });

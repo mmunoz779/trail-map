@@ -24,12 +24,11 @@
         <li><a href="/profile">Profile</a></li>
     </ul>
 </nav>
-
 <form name="myForm" ng-app="myApp" ng-submit="submitRoute()" hidden id="myForm">
 
     <div class="container">
         <div class='error'>
-            <p name = 'error'></p>
+            <p name='error'></p>
         </div>
         <label for="name"><b>Route Name</b></label>
         <input type="text" placeholder="Enter Route Name" name="routeName" required>
@@ -48,8 +47,9 @@
 </form>
 <script>
     var app = angular.module(["myApp"], []);
-    app.controller('loadRouteController', function($scope, $http, $location) {
+    app.controller('loadRouteController', function ($scope, $http, $location) {
         var tempObj = $location.search();
+        console.log(tempObj.routeData);
         var routeArray = tempObj.routeData.split(",");
         loadSavedRoute(routeArray);
     });
@@ -73,8 +73,7 @@
             request.success((response) => {
                 if (response.error) {
                     $scope.error = 'Internal server error, please try again later'
-                }
-                else {
+                } else {
                     window.location.href = "/profile#?success=true";
                 }
             });
@@ -82,11 +81,11 @@
     });
 </script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
+        async defer></script>
+
 <div id="map"></div>
 <div class="infoBox" id="info-box">distance = km</div>
 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
-        async defer></script>
 </body>
 </html>

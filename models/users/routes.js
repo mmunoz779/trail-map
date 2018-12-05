@@ -18,7 +18,7 @@ routes.prototype.getUserRoutes = function (req, res, callback) {
     if (req.session.user) {
         var params = [req.session.user.email],
             checkPasswordQuery = 'SELECT password FROM users WHERE email=?',
-            getRoutesQuery = 'SELECT name, route FROM savedRoutes WHERE email = ?';
+            getRoutesQuery = 'SELECT name, route, distance FROM savedRoutes WHERE email = ?';
         createPool();
         mysqlPool.getConnection(function (err, connection) {
             connection.query(checkPasswordQuery, params, function (err, rows, fields) {
