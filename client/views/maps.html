@@ -24,13 +24,13 @@
         <li><a href="/profile">Profile</a></li>
     </ul>
 </nav>
-<form name="myForm" ng-app="myApp" ng-submit="submitRoute()" hidden id="myForm">
+<form name="myForm" ng-app="myApp" ng-controller="submitRouteController" ng-submit="submitRoute()" hidden id="myForm">
 
     <div class="container">
         <div class='error'>
             <p name='error'></p>
         </div>
-        <label for="name"><b>Route Name</b></label>
+        <label for="name" style="color: #ffffff"><b>Route Name</b></label>
         <input type="text" placeholder="Enter Route Name" name="routeName" required>
         <input type="text" hidden name="routeSegments">
         <input type="text" hidden name="distance">
@@ -47,14 +47,16 @@
 </form>
 <script>
     var app = angular.module(["myApp"], []);
-    app.controller('loadRouteController', function ($scope, $http, $location) {
-        var tempObj = $location.search();
-        console.log(tempObj.routeData);
-        var routeArray = tempObj.routeData.split(",");
-        loadSavedRoute(routeArray);
-    });
 
-    app.controller('submitRouteController', function ($scope, $http) {
+    app.controller('submitRouteController', function ($scope, $http, $location) {
+        $scope.loadExisting = function () {
+            console.log("running angular, location is: " + JSON.stringify($location));
+            var tempObj = $location.search();
+            console.log(tempObj.routeData);
+            var routeArray = tempObj.routeData.split(",");
+            loadSavedRoute(routeArray);
+        };
+
         $scope.submitRoute = function () {
             var routeName = document.forms["myForm"]["routeName"].value;
             var routeData = document.forms["myForm"]["routeSegments"].value;

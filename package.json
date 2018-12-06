@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "",
   "dependencies": {
+    "@types/googlemaps": "^3.30.16",
     "angular": "^1.7.5",
     "async": "^2.6.1",
     "aws-sdk": "^2.338.0",
@@ -21,8 +22,8 @@
     "passport-google-oauth": "^1.0.0",
     "password-hash": "^1.2.2",
     "path": "^0.12.7",
-    "serve-favicon": "^2.5.0",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "serve-favicon": "^2.5.0"
   },
   "scripts": {
     "start": "node js/server.js",

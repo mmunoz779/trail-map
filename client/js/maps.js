@@ -34,6 +34,10 @@ function initMap() {
         });
     });
 
+    google.maps.event.addListenerOnce(map, 'idle', function () {
+        angular.element(document.getElementById("myForm")).scope().loadExisting();
+    });
+
     map.data.addListener('mouseover', function (event) {
         map.data.revertStyle();
         map.data.overrideStyle(event.feature, {strokeWeight: 8});
@@ -153,12 +157,13 @@ function RouteSaveControl(controlDiv, map) {
                 if (feature.getProperty('selected')) {
                     routeData.push(feature.getProperty('name'));
                     console.log(feature.getProperty('name'));
-                    //JSON.stringify(feature);
                 }
             });
 
             document.forms["myForm"]["routeSegments"].value  = routeData.toString();
             document.forms["myForm"]["distance"].value = dis;
+        } else {
+            alert("Please select a route");
         }
     });
 }
@@ -169,14 +174,16 @@ function hideForm() {
 
 function loadSavedRoute(selectArray) {
 
-    var trailData = '../JSON/techTrails.geojson';
-    map.data.loadGeoJson(trailData);
+    // var trailData = '../JSON/techTrails.geojson';
+    // map.data.loadGeoJson(trailData);
     var mapData = map.data;
 
-    for (var i = 0; i < selectArray.length - 1; i++) {
+    for (var i = 0; i < selectArray.length; i++) {
         mapData.forEach(function (feature) {
             if (selectArray[i] == feature.getProperty('name')) {
                 feature.setProperty('selected', true);
+                dis += feature.getProperty('distance');
+                updateDist();
             }
         });
     }
