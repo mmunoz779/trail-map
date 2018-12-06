@@ -57,6 +57,7 @@
             <tr ng-repeat="x in routes">
                 <td align="center">{{x.name}}</td>
                 <td align="center">{{x.distance}} km</td>
+                <td hidden>{{x.route}}</td>
                 <td align="center">
                     <button ng-click="edit(x)">Edit</button>
                 </td>
@@ -78,8 +79,9 @@
     });
     app.controller('savedRouteController', function ($scope, $http, $location) {
         var tempObj = $location.search();
-        if (tempObj.success) {
+        if (tempObj.success == 'true') {
             $scope.success = "Successfully added or updated route";
+            $location.search('success', false);
         }
         $scope.edit = function (row) {
             window.location.href = "/maps#?routeData=" + row.route;

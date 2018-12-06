@@ -50,9 +50,7 @@
 
     app.controller('submitRouteController', function ($scope, $http, $location) {
         $scope.loadExisting = function () {
-            console.log("running angular, location is: " + JSON.stringify($location));
             var tempObj = $location.search();
-            console.log(tempObj.routeData);
             var routeArray = tempObj.routeData.split(",");
             loadSavedRoute(routeArray);
         };
