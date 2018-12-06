@@ -84,7 +84,7 @@
             $location.search('success', false);
         }
         $scope.edit = function (row) {
-            window.location.href = "/maps#?routeData=" + row.route;
+            window.location.href = "/maps#?routeData=" + row.route + '&name=' + row.name;
         };
         $scope.delete = function (row) {
             var request = $http({

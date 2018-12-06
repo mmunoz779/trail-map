@@ -33,6 +33,12 @@
             var tempObj = $location.search();
             var routeArray = tempObj.routeData.split(",");
 
+            if (tempObj.name) {
+                document.forms['myForm']['routeName'].value = tempObj.name;
+                document.forms['myForm']['submitRouteButton'].innerHTML = 'Update Route';
+            }
+
+
             setTimeout(function() {
                 loadSavedRoute(routeArray);
             }, 500);
@@ -87,9 +93,7 @@
         <input type="text" hidden name="routeSegments">
         <input type="text" hidden name="distance">
         <!-- Add information validation script to check valid login info and email-->
-        <button type="submit"
-        >Submit Name
-        </button>
+        <button type="submit" name="submitRouteButton">Submit Route</button>
 
 
         <button type="button" class="cancelbtn"
