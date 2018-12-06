@@ -32,7 +32,10 @@
         $scope.loadExisting = function () {
             var tempObj = $location.search();
             var routeArray = tempObj.routeData.split(",");
-            loadSavedRoute(routeArray);
+
+            setTimeout(function() {
+                loadSavedRoute(routeArray);
+            }, 500);
         };
 
         $scope.submitRoute = function () {
