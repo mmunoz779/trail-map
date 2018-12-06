@@ -58,6 +58,17 @@ router.get('/info', function (req, res) {
     });
 });
 
+router.post('/routes/delete', function (req, res) {
+    routes.deleteRoutes(req, res, function (err, data) {
+        if (err) {
+            res.json({'error': data.error, 'message': data.message});
+        } else {
+            console.log("DEBUG POINT");
+            res.json({'error': false, 'message': 'Successfully deleted'});
+        }
+    })
+});
+
 router.get('/routes', function (req, res) {
     routes.getUserRoutes(req, res, function (err, data) {
         if (err) {

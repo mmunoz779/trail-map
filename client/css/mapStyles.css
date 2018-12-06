@@ -13,6 +13,10 @@ html, body {
     background-color: #555555;
 }
 
+.error {
+    color: #ff0000;
+}
+
 #info-box {
     background-color: white;
     border: 1px solid black;

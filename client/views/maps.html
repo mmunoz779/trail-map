@@ -28,7 +28,7 @@
 
     <div class="container">
         <div class='error'>
-            <p name='error'></p>
+            <p name='error'>{{error}}</p>
         </div>
         <label for="name" style="color: #ffffff"><b>Route Name</b></label>
         <input type="text" placeholder="Enter Route Name" name="routeName" required>
@@ -61,7 +61,11 @@
             var routeName = document.forms["myForm"]["routeName"].value;
             var routeData = document.forms["myForm"]["routeSegments"].value;
             var distance = document.forms["myForm"]["distance"].value;
-            console.log("angular: " + distance + "route data: " + routeData + "route name: " + routeName);
+
+            if (routeName.length > 30) {
+                $scope.error = "Please enter a name less than 30 characters";
+                return;
+            }
 
             var request = $http({
                 method: 'post',
@@ -73,12 +77,18 @@
                 }
             });
             request.success((response) => {
+                console.log(response.data);
                 if (response.error) {
+                    console.log('Internal server error');
                     $scope.error = 'Internal server error, please try again later'
                 } else {
                     window.location.href = "/profile#?success=true";
                 }
             });
+            request.error((response) => {
+                $scope.error = "Internal server error";
+                console.log("Internal server error");
+            })
         }
     });
 </script>

@@ -15,6 +15,11 @@
         });
     </script>
     <script src="../js/maps.js"></script>
+    <style>
+        h2, h3 {
+            align-content: center;
+        }
+    </style>
 </head>
 <body ng-app="myApp">
 <nav>
@@ -34,21 +39,33 @@
 
 <div align="center" class="favoriteRoutes" ng-app="myApp" ng-controller="savedRouteController">
     <h2><b>Saved Routes</b></h2>
-    <table border=1px>
-        <tr>
-            <th style="justify-content: center; width: 250px;">Name</th>
-            <th hidden>Route</th>
-            <th>Distance</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="x in routes">
-            <td style="justify-content: center">{{x.name}}</td>
-            <td style="justify-content: center">{{x.distance}}</td>
-            <td style="justify-content: center">
-                <button ng-click="edit(x)">Edit</button>
-            </td>
-        </tr>
-    </table>
+    <div class="success">
+        <p name="success">{{success}}</p>
+    </div>
+    <div class="error">
+        <p name="noSavedRoutes">{{noSavedRoutes}}</p>
+    </div>
+    <div id="savedRoutesTableContainer">
+        <table border=1px>
+            <tr>
+                <th align="center" style="width: 250px;">Name</th>
+                <th align="center" hidden>Route</th>
+                <th align="center">Distance</th>
+                <th align="center"></th>
+                <th align="center"></th>
+            </tr>
+            <tr ng-repeat="x in routes">
+                <td align="center">{{x.name}}</td>
+                <td align="center">{{x.distance}} km</td>
+                <td align="center">
+                    <button ng-click="edit(x)">Edit</button>
+                </td>
+                <td align="center">
+                    <button ng-click="delete(x)" style="background-color:red">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -59,13 +76,42 @@
                 $scope.users = response.data;
             });
     });
-    app.controller('savedRouteController', function ($scope, $http) {
+    app.controller('savedRouteController', function ($scope, $http, $location) {
+        var tempObj = $location.search();
+        if (tempObj.success) {
+            $scope.success = "Successfully added or updated route";
+        }
         $scope.edit = function (row) {
             window.location.href = "/maps#?routeData=" + row.route;
-        }
+        };
+        $scope.delete = function (row) {
+            var request = $http({
+                method: 'post',
+                url: '/api/users/routes/delete',
+                data: {
+                    name: row.name
+                }
+            });
+            request.success((response) => {
+                if (response.error) {
+                    $scope.error = "Delete unsuccessful";
+                } else {
+                    document.location = '/profile';
+                }
+            });
+            request.error((response) => {
+                $scope.error = "Internal server error";
+                console.log("Internal server error");
+            })
+        };
         $http.get("/api/users/routes")
             .then(function (response) {
-                $scope.routes = response.data;
+                if (response.data[0] == undefined) {
+                    document.getElementById("savedRoutesTableContainer").hidden = true;
+                    $scope.noSavedRoutes = "No saved routes";
+                } else {
+                    $scope.routes = response.data;
+                }
             });
     });
 </script>
