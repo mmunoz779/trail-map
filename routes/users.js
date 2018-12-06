@@ -63,7 +63,6 @@ router.post('/routes/delete', function (req, res) {
         if (err) {
             res.json({'error': data.error, 'message': data.message});
         } else {
-            console.log("DEBUG POINT");
             res.json({'error': false, 'message': 'Successfully deleted'});
         }
     })
