@@ -23,6 +23,7 @@ routes.prototype.getUserRoutes = function (req, res, callback) {
         mysqlPool.getConnection(function (err, connection) {
             connection.query(checkPasswordQuery, params, function (err, rows, fields) {
                 if (rows.length <= 0) {
+                    connection.release();
                     res.redirect(400, '/login'); // Account does not exist, redirect to login and add no account found alert
                     return;
                 }
@@ -53,6 +54,7 @@ routes.prototype.deleteRoutes = function (req, res, callback) {
         mysqlPool.getConnection(function (err, connection) {
             connection.query(checkPasswordQuery, params, function (err, rows, fields) {
                 if (rows.length <= 0) {
+                    connection.release();
                     res.redirect(400, '/login'); // Account does not exist, redirect to login and add no account found alert
                     return;
                 }
@@ -92,6 +94,7 @@ routes.prototype.setUserRoutes = function (req, res, callback) {
         mysqlPool.getConnection(function (err, connection) {
             connection.query(checkPasswordQuery, passParams, function (err, rows, fields) {
                 if (rows.length <= 0) {
+                    connection.release();
                     res.redirect(400, '/login'); // Account does not exist, redirect to login and add no account found alert
                     return;
                 }

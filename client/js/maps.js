@@ -17,7 +17,7 @@ function initMap() {
     });
     updateDist();
 
-    var trailData = '../JSON/techTrails.geojson'
+    var trailData = '../JSON/techTrails.geojson';
     map.data.loadGeoJson(trailData);
 
     map.data.setStyle(function (feature) {
@@ -172,11 +172,12 @@ function hideForm() {
     $("#myForm").hide();
 }
 
-function loadSavedRoute(selectArray) {
+loadSavedRoute = function loadSavedRoute(selectArray) {
 
     var mapData = map.data;
 
     for (var i = 0; i < selectArray.length; i++) {
+
         mapData.forEach(function (feature) {
             if (selectArray[i] == feature.getProperty('name')) {
                 feature.setProperty('selected', true);
@@ -185,8 +186,4 @@ function loadSavedRoute(selectArray) {
             }
         });
     }
-}
-
-function validateRouteName() {
-
-}
+};
