@@ -24,27 +24,6 @@
         <li><a href="/profile">Profile</a></li>
     </ul>
 </nav>
-<form name="myForm" ng-app="myApp" ng-controller="submitRouteController" ng-submit="submitRoute()" hidden id="myForm">
-
-    <div class="container">
-        <div class='error'>
-            <p name='error'>{{error}}</p>
-        </div>
-        <label for="name" style="color: #ffffff"><b>Route Name</b></label>
-        <input type="text" placeholder="Enter Route Name" name="routeName" required>
-        <input type="text" hidden name="routeSegments">
-        <input type="text" hidden name="distance">
-        <!-- Add information validation script to check valid login info and email-->
-        <button type="submit"
-        >Submit Name
-        </button>
-
-
-        <button type="button" class="cancelbtn"
-                onclick="hideForm()">Cancel
-        </button>
-    </div>
-</form>
 <script>
     var app = angular.module(["myApp"], []);
 
@@ -93,6 +72,27 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEstDusQSA9UcvFkFoMmBJVPX02ifQVs&callback=initMap"
         async defer></script>
+<form name="myForm" ng-app="myApp" ng-controller="submitRouteController" ng-submit="submitRoute()" hidden id="myForm">
+
+    <div class="container">
+        <div class='error'>
+            <p name='error'>{{error}}</p>
+        </div>
+        <label for="name" style="color: #ffffff"><b>Route Name</b></label>
+        <input type="text" placeholder="Enter Route Name" name="routeName" required>
+        <input type="text" hidden name="routeSegments">
+        <input type="text" hidden name="distance">
+        <!-- Add information validation script to check valid login info and email-->
+        <button type="submit"
+        >Submit Name
+        </button>
+
+
+        <button type="button" class="cancelbtn"
+                onclick="hideForm()">Cancel
+        </button>
+    </div>
+</form>
 
 <div id="map"></div>
 <div class="infoBox" id="info-box">distance = km</div>
