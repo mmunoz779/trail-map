@@ -17,7 +17,7 @@ info.prototype.getUserInfo = function (req, res, callback) {
         var nowDate = new Date().toISOString().slice(0, 19).replace('T', ' '),
             params = [req.session.user.email],
             checkPasswordQuery = 'SELECT password FROM users WHERE email=?',
-            getDetailQuery = 'SELECT id, email, lastLogin, name, role FROM users WHERE email = ?';
+            getDetailQuery = 'SELECT id, email, DATE_FORMAT(CONVERT_TZ(lastLogin,\'GMT\',\'EST\'),\'%c/%e/%y %h:%i:%s %p\') lastLogin, name, role FROM users WHERE email = ?';
         createPool();
         mysqlPool.getConnection(function (err, connection) {
             connection.query(checkPasswordQuery, params, function (err, rows, fields) {
@@ -50,7 +50,8 @@ function createPool() {
             user: "alphaomega",
             password: "wolfsquadron",
             database: "userinfo",
-            timeout: 3000
+            timeout: 3000,
+            dateStrings: true
         });
     }
 }

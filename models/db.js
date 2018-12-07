@@ -13,7 +13,8 @@ DB.prototype.createPool = function () {
         user: "alphaomega",
         password: "wolfsquadron",
         database: "userinfo",
-        connectionLimit: 2
+        connectionLimit: 2,
+        dateStrings: true
     });
 };
 

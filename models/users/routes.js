@@ -147,7 +147,8 @@ function createPool() {
             user: "alphaomega",
             password: "wolfsquadron",
             database: "userinfo",
-            timeout: 3000
+            timeout: 3000,
+            dateStrings: true
         });
     }
 }
