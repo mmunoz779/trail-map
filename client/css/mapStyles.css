@@ -58,6 +58,21 @@ li a {
     text-align: center;
 }
 
+li button {
+    width: 100px;
+    display: block;
+    background-color: #555555;
+    color: white;
+    border: 1px solid #444444;
+    padding-top: 10px;
+    padding-bottom: 9px;
+    text-align: center;
+}
+
+li button:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
 
 li strong {
     width: 100px;

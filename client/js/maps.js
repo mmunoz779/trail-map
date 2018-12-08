@@ -13,7 +13,8 @@ function getDis() {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 47.102929, lng: -88.551937},
-        zoom: 15
+        zoom: 15,
+        disableDefaultUI: true
     });
     updateDist();
 

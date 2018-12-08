@@ -22,6 +22,13 @@
     <ul>
         <li><a href="/" id="logoutLink">Logout</a></li>
         <li><a href="/profile">Profile</a></li>
+        <li>
+            <button onclick="alert('Plan your visit to the Tech Trails and save it for later! Begin by ' +
+         'clicking on a route segment to add it to your run, the total distance will be shown on ' +
+         'the bottom left. If you want to save your run, click the save selected route button at the top of the map and ' +
+          'enter a name in the dialog box that appears, hit submit to save the route to your profile.')">Help
+            </button>
+        </li>
     </ul>
 </nav>
 <script>
@@ -84,7 +91,7 @@
         async defer></script>
 <form name="myForm" ng-app="myApp" ng-controller="submitRouteController" ng-submit="submitRoute()" hidden id="myForm">
 
-    <div class="container">
+    <div align="center" class="container">
         <div class='error'>
             <p name='error'>{{error}}</p>
         </div>
