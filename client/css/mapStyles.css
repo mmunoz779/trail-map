@@ -27,6 +27,16 @@ html, body {
     left: 30px;
 }
 
+#legend {
+    background-color: white;
+    border: 1px solid black;
+    bottom: 50px;
+    height: 63px;
+    padding: 10px;
+    position: absolute;
+    right: 30px;
+}
+
 /* nav bar stylings*/
 ul {
     position: -webkit-sticky; /* Safari */

@@ -11,6 +11,7 @@ function getDis() {
 }
 
 function initMap() {
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 47.102929, lng: -88.551937},
         zoom: 15,
@@ -67,7 +68,6 @@ function initMap() {
     centerControlDiv1.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv1);
 
-
     var centerControlDiv2 = document.createElement('div');
     var saveControl = new RouteSaveControl(centerControlDiv2, map);
     centerControlDiv2.index = 1;
@@ -78,11 +78,13 @@ function initMap() {
     centerControlDiv3.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv3);
 
+
 }
 
 function updateDist() {
     document.getElementById('info-box').textContent = `distance = ${dis.toFixed(1)}km`;
 }
+
 
 function CenterControl(controlDiv, map) {
 

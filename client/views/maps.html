@@ -31,8 +31,9 @@
         </li>
     </ul>
 </nav>
-<script>
 
+<script>
+    (document.getElementById('legend'));
     var app = angular.module(["myApp"], []);
 
     app.controller('submitRouteController', function ($scope, $http, $location) {
@@ -110,7 +111,10 @@
 </form>
 
 <div id="map"></div>
-<div class="infoBox" id="info-box">distance = km</div>
+<div class="infoBox" id="info-box"></div>
 
+<div class = "legend" id="legend">
+<img src="../assets/legend.png" height="65"/>
+</div>
 </body>
 </html>
