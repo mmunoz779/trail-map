@@ -20,6 +20,7 @@ function initMap() {
     updateDist();
 
     var trailData = '../JSON/techTrails.geojson';
+
     map.data.loadGeoJson(trailData);
 
     map.data.setStyle(function (feature) {
@@ -78,13 +79,48 @@ function initMap() {
     centerControlDiv3.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv3);
 
+    var legendControlDiv = document.createElement('div');
+    var legendControl = new LegendControl(legendControlDiv, map);
+    legendControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(legendControlDiv);
+}
+
+function LegendControl(controlDiv, map) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '50px';
+    controlUI.style.marginRight = '30px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Show Legend';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Legend';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners
+    controlUI.addEventListener('click', function () {
+        document.getElementById("legend").hidden = !document.getElementById("legend").hidden;
+    });
 
 }
 
 function updateDist() {
     document.getElementById('info-box').textContent = `distance = ${dis.toFixed(1)}km`;
 }
-
 
 function CenterControl(controlDiv, map) {
 
@@ -112,7 +148,7 @@ function CenterControl(controlDiv, map) {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners
-    controlUI.addEventListener('click', function() {
+    controlUI.addEventListener('click', function () {
         map.setCenter({lat: 47.102929, lng: -88.551937});
         map.setZoom(15);
     });
@@ -180,7 +216,7 @@ function RouteSaveControl(controlDiv, map) {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners
-    controlUI.addEventListener('click', function() {
+    controlUI.addEventListener('click', function () {
 
         var mapData = map.data;                   //json object (array) of map data
 
@@ -204,7 +240,7 @@ function RouteSaveControl(controlDiv, map) {
                 }
             });
 
-            document.forms["myForm"]["routeSegments"].value  = routeData.toString();
+            document.forms["myForm"]["routeSegments"].value = routeData.toString();
             document.forms["myForm"]["distance"].value = dis;
         } else {
             alert("Please select a route");

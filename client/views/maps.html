@@ -46,8 +46,7 @@
                 document.forms['myForm']['submitRouteButton'].innerHTML = 'Update Route';
             }
 
-
-            setTimeout(function() {
+            setTimeout(function () {
                 loadSavedRoute(routeArray);
             }, 500);
         };
@@ -94,7 +93,7 @@
 
     <div align="center" class="container">
         <div class='error'>
-            <p name='error'>{{error}}</p>
+            <p>{{error}}</p>
         </div>
         <label for="name" style="color: #ffffff"><b>Route Name</b></label>
         <input type="text" placeholder="Enter Route Name" name="routeName" required>
@@ -113,8 +112,8 @@
 <div id="map"></div>
 <div class="infoBox" id="info-box"></div>
 
-<div class = "legend" id="legend">
-<img src="../assets/legend.png" height="65"/>
+<div class="legend">
+    <img id="legend" src="../assets/legend.png" alt="Unable to load map legend" hidden/>
 </div>
 </body>
 </html>
