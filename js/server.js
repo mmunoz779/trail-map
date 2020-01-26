@@ -1,5 +1,5 @@
 // Configure server constants
-const port = 80;
+const port = 8080;
 
 // Configure express and routing
 var express = require('express');

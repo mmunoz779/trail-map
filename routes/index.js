@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-    res.render('home.html');
+    res.render('maps.html');
 });
 
 router.use('/api/users', require('./users'));

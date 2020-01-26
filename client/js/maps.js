@@ -38,7 +38,8 @@ function initMap() {
     });
 
     google.maps.event.addListenerOnce(map, 'idle', function () {
-        angular.element(document.getElementById("myForm")).scope().loadExisting();
+        // Do not use while database is disabled
+        // angular.element(document.getElementById("myForm")).scope().loadExisting();
     });
 
     map.data.addListener('mouseover', function (event) {
